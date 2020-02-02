@@ -1,0 +1,168 @@
+
+#register {
+  width: 568px;
+  height: 729px;
+  background-image: url('../ui/picture/registration/register_block.png');
+  background-repeat:no-repeat;
+  text-align:center;
+  display: table;
+  margin: 0 auto;
+}
+
+#register-email{
+  position: relative;
+  bottom:-228px;
+  right: 5px;
+}
+
+#register-username{
+  position: relative;
+  bottom:-275px;
+  right: 10px;
+}
+
+#register-password{
+  position: relative;
+  bottom:-325px;
+  right: 10px;
+}
+#register-repeat-password{
+  position: relative;
+  bottom:-375px;
+  right: 10px;
+}
+
+#register-button{
+  position: relative;
+  bottom:-415px;
+  right: 5px;
+}
+
+#happy-checkbox{
+ -webkit-text-stroke-color: #706447;
+  text-decoration: none;
+  color: #706447;
+  font-size: 22px;
+  font-family: "Microsoft Sans Serif";
+  font-weight: normal;
+  position: relative;
+  bottom:-395px;
+  right: 5px;
+}
+
+#hrefs a{
+  margin-right: 15px;
+  margin-left: 20px;
+}
+
+#register input[type="text"]:focus {
+  border: none;
+}
+
+#register input[type="text"] {
+   border: none;
+   border-radius: none;
+   background: transparent;
+   outline: none;
+   height: 30px;
+   width: 350px;
+   font-family: 'Microsoft Sans Serif', Helvetica, sans-serif;
+   color: #bda97a;
+   font-size: 30px;
+   font-weight: bolder;
+   -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #bda97a;
+}
+
+#register input[type="password"] {
+   border: none;
+   border-radius: none;
+   background: transparent;
+   outline: none;
+   height: 30px;
+   width: 250px;
+   color: #bda97a;
+   font-size: 30px;
+   font-family: "Microsoft Sans Serif";
+   font-weight: bolder;
+   -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #bda97a;
+}
+#register input::placeholder {
+  color:  #bda97a;
+  font-weight: bolder;
+
+    text-align:center;
+
+}
+#register button{
+  border: none;
+  background: transparent;
+}
+
+#register a{
+  text-decoration: none;
+  color: #706447;
+  font-size: 22px;
+  font-family: "Microsoft Sans Serif";
+  font-weight: normal;
+}
+#register .checkbox-container {
+  display: block;
+  position: relative;
+  left:115px;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#register .checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+#register .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #ffecbf;
+}
+
+#register .checkbox-container:hover input ~ .checkmark {
+  background-color: #cab688;
+}
+
+#register .checkbox-container input:checked ~ .checkmark {
+  background-color: #706447;
+}
+
+#register .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+#register .checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+#register .checkbox-container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}

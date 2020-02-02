@@ -1,0 +1,95 @@
+.content-block{
+  position: relative;
+  -webkit-text-stroke-width: 0px;
+  color: #bda97a;
+  font-size: 20px;
+  font-family: "Arial";
+  font-weight: bolder;
+  text-align:center;
+  margin-bottom: 15px;
+
+}
+
+.content-frame{
+  width:565px;
+  height: 224px;
+  position: relative;
+  background-image:url('../ui/picture/content-block/frame.png');
+  background-repeat:no-repeat;
+  text-align:left;
+  display: table;
+  margin: 0 auto;
+}
+
+.username-div{
+  text-align:left;
+  position: relative;
+  height:40px;
+  display: inline-block;
+  background-color: white;
+  padding:0px;
+  left:13px;
+  top:7px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 20px;
+}
+.username-div p{
+  position: relative;
+  bottom: 15px;
+  left:8px;
+  padding-right: 15px;
+}
+
+.like-block{
+  position: relative;
+  bottom: 65px;
+  text-align:right;
+  width:auto;
+
+}
+.like-div{
+  z-index:0;
+  width:auto;
+  text-align:right;
+  position: relative;
+  bottom: 70px;
+  right:50px;
+  color:white;
+}
+
+.text-block{
+
+  position: relative;
+  color: black;
+  left:26px;
+  bottom: 10px;
+}
+
+.tag-container{
+  z-index: -1;
+  color: black;
+  position: absolute;
+  bottom: -10px;
+  left: +30px;
+
+  background-color: #6cc2bd;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.tag1{
+  position: relative;
+  top:15px;
+  z-index: -1;
+  padding:10px 10px 0 10px;
+}
+.image{
+  text-align:center;
+  z-index: -1;
+  position: absolute;
+  width:524px;
+  height: 168px;
+  bottom: -35px;
+  transform: translate(-50%, -50%);
+}
