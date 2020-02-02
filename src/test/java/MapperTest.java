@@ -12,9 +12,6 @@ public class MapperTest {
     public void getBy() {
         ArrayList<User> users = new ArrayList<>();
 
-
-
-
         Mapper<Post> mapper = new Mapper<>(Post.class);
         System.out.println(mapper.getBy("id","1").get(0).toString());
     }
