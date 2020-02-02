@@ -1,7 +1,5 @@
-package dao.mapper;
+package dao;
 
-import dao.ConnectionController;
-import dao.mapper.exceptions.NoSuchFieldException;
 import org.apache.log4j.Logger;
 
 import java.io.FileNotFoundException;
@@ -50,7 +48,7 @@ public class Mapper<T> {
             for (Field field : allFields) {
 
                 if (!(field.getType().getName().equals("java.util.List") ||
-                        field.getType().getName().equals("dao.mapper.Mapper"))) {
+                        field.getType().getName().equals("dao.Mapper"))) {
                     sqlQuery.append(", ").append(field.getName());
                 }
             }
@@ -72,7 +70,7 @@ public class Mapper<T> {
         StringBuilder sqlQuery = new StringBuilder();
         for (Field field : allFields) {
             if (!(field.getType().getName().equals("java.util.List") ||
-                    field.getType().getName().equals("dao.mapper.Mapper") ||
+                    field.getType().getName().equals("dao.Mapper") ||
                     field.getName().equals("id")
             )) {
                 sqlQueryColumns.append(", ").append(field.getName());
@@ -104,7 +102,7 @@ public class Mapper<T> {
         try {
             for (Field field : allFields) {
                 if (!(field.getType().getName().equals("java.util.List") ||
-                        field.getType().getName().equals("dao.mapper.Mapper") ||
+                        field.getType().getName().equals("dao.Mapper") ||
                         field.getName().equals("id")
                 )) {
                     field.setAccessible(true);
@@ -169,7 +167,7 @@ public class Mapper<T> {
                         field.setAccessible(true);
                         String fieldResultSet = "";
                         if (!(field.getType().getName().equals("java.util.List") ||
-                                field.getType().getName().equals("dao.mapper.Mapper"))) {
+                                field.getType().getName().equals("dao.Mapper"))) {
                             fieldResultSet = resultSet.getString(field.getName());
                         }
                         if (field.getType().getName().equals("int") || field.getType().getName().equals("Integer")) {

@@ -1,4 +1,4 @@
-package dao.mapper.exceptions;
+package dao;
 
 public class NoSuchFieldException extends RuntimeException {
 

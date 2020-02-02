@@ -1,7 +1,7 @@
 package domain.entity;
 
-import dao.mapper.Mapper;
-import dao.mapper.TableName;
+import dao.Mapper;
+import dao.TableName;
 
 import java.util.ArrayList;
 import java.util.List;

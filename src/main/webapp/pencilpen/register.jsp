@@ -16,7 +16,7 @@
     authenticationController.register(request);
   }catch (Exception e) {
   %>
-<h1>ERRORS MANY ERRORS<h2>
+<p>ERRORS MANY ERRORS<p>
   <%
   }
   };

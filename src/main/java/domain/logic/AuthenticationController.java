@@ -1,6 +1,6 @@
 package domain.logic;
 
-import dao.mapper.Mapper;
+import dao.Mapper;
 import domain.entity.User;
 import domain.exception.registration.AlreadyExistsException;
 import domain.exception.registration.PasswordException;

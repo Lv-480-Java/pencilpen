@@ -1,6 +1,6 @@
 package domain.entity;
 
-import dao.mapper.TableName;
+import dao.TableName;
 
 @TableName(name="Comment")
 public class Comment  {
