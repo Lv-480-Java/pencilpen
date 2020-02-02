@@ -28,7 +28,7 @@ public class AuthenticationController {
                     username.length()>3 &&
                     username.length() < 50
                 ) {
-                    mapper.addToTable(
+                    mapper.addField(
                             new User(email,
                                      username,
                                      password

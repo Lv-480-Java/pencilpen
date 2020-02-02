@@ -205,7 +205,7 @@ public class Mapper<T> {
         return entityList;
     }
 
-    public void addToTable(T objectToAdd) {
+    public void addField(T objectToAdd) {
         if (objectToAdd != null) {
             PreparedStatement statement = null;
             try {
@@ -230,7 +230,7 @@ public class Mapper<T> {
 
     }
 
-    public void update(T objectToUpdate){
+    public void updateField(T objectToUpdate){
         if (objectToUpdate != null) {
             PreparedStatement statement = null;
             try {
@@ -260,7 +260,7 @@ public class Mapper<T> {
         }
     }
 
-    public void delete(T objectToRemove){
+    public void deleteField(T objectToRemove){
         if (objectToRemove != null) {
             PreparedStatement statement = null;
             try {

@@ -18,6 +18,6 @@ public class MapperTest {
         comment.setPostId(1);
         comment.setUserId(1);
         comment.setId(4);
-        mapper.delete(comment);
+        mapper.deleteField(comment);
     }
 }
