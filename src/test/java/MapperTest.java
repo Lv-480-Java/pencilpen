@@ -1,5 +1,4 @@
-import dao.DaoGeneric.Mapper;
-import domain.entity.Comment;
+import dao.mapper.Mapper;
 import domain.entity.Post;
 import domain.entity.User;
 import org.junit.Test;

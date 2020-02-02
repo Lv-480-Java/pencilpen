@@ -1,6 +1,6 @@
 package domain.entity;
 
-import dao.DaoGeneric.TableName;
+import dao.mapper.TableName;
 
 @TableName(name="User")
 public class User {

@@ -1,9 +1,6 @@
 package domain.entity;
 
-import dao.DaoGeneric.TableName;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import dao.mapper.TableName;
 
 @TableName(name="Pleasant")
 public class Pleasant {

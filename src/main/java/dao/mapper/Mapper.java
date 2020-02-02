@@ -1,7 +1,7 @@
-package dao.DaoGeneric;
+package dao.mapper;
 
 import dao.ConnectionController;
-import dao.DaoGeneric.exceptions.NoSuchFieldException;
+import dao.mapper.exceptions.NoSuchFieldException;
 import org.apache.log4j.Logger;
 
 import java.io.FileNotFoundException;
@@ -46,7 +46,7 @@ public class Mapper<T> {
             for (Field field : allFields) {
 
                 if (!(field.getType().getName().equals("java.util.List") ||
-                        field.getType().getName().equals("dao.DaoGeneric.Mapper"))) {
+                        field.getType().getName().equals("dao.mapper.Mapper"))) {
                     sqlQuery.append(", ").append(field.getName());
                 }
             }
@@ -96,7 +96,7 @@ public class Mapper<T> {
                         field.setAccessible(true);
                         String fieldResultSet="";
                         if (!(field.getType().getName().equals("java.util.List") ||
-                                field.getType().getName().equals("dao.DaoGeneric.Mapper"))) {
+                                field.getType().getName().equals("dao.mapper.Mapper"))) {
                             fieldResultSet = resultSet.getString(field.getName());
                         }
                         if(field.getType().getName().equals("int") || field.getType().getName().equals("Integer")) {
