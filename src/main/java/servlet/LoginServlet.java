@@ -38,8 +38,9 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("password", password);
                 session.setAttribute("username", username);
 
-                response.sendRedirect("/gallery");
+                response.sendRedirect("/profile");
                 System.out.println(" ITS OKAY");
+
 
             } else {
                 request.setAttribute("text-result", "Error! Login or password is not right");

@@ -70,9 +70,9 @@
         </div>
           <div id="send-panel">
 
-      <form>
-                <textarea id = "description" placeholder="Description" name="description" cols="40" rows="2"></textarea>
-                <input type="text" name="tag" value="Tag">
+      <form id="input-form">
+                <textarea id="description" placeholder="Description" name="description" cols="40" rows="2"></textarea>
+                <input id="tag" type="text" name="tag" value="Tag">
                 <input id="submit-button" type= "submit" name="Submit" value="Submit">
       </form>
           </div>

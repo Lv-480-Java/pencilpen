@@ -51,16 +51,25 @@ window.addEventListener("load", function onWindowLoad() {
     var canvas = document.getElementById("canvas");
     var ctx1 = canvas.getContext("2d");
     var dataURL = canvas.toDataURL("image/png");
-    formdata = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+
+    img = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+
+    var form = $("#input-form").serializeArray();
+
+  
+    var package={ 
+      tag: $("#tag").val(),
+      description: $("#description").val(),
+      imageData: img
+     }
 
     $.ajax({
         url: '/add',
         type: 'POST',
-        data: {img: formdata,
-                }
+        data: JSON.stringify(package),
         processData: false,
         contentType: "text/html",
-        success: function(data){
+        success: function(respons){
         }
     });
 

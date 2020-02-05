@@ -7,13 +7,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import domain.entity.Post;
 import domain.logic.NewPostController;
 import org.apache.commons.codec.binary.Base64;
 
-import java.io.PrintWriter;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -30,16 +31,30 @@ public class NewPostServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String passwordAtribute = (String) session.getAttribute("password");
         String usernameAtribute = (String) session.getAttribute("username");
-        PrintWriter writer = response.getWriter();
-        if(passwordAtribute!=null && usernameAtribute!=null && request.getParameter("description")!=null){
-            String uniqueID = UUID.randomUUID().toString();
-            NewPostController newPostController = new NewPostController();
-            newPostController.fetchPicture(session, request,uniqueID);
-            newPostController.addPost(request, session, uniqueID);
-        }else {
-            writer.write("hello, GEEST");
+
+        BufferedReader br =
+                new BufferedReader(new InputStreamReader(request.getInputStream()));
+
+        String json = "";
+
+        if(br != null){
+            json = br.readLine();
+            System.out.println(json);
         }
 
+        JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
+        String description = jsonObject.get("description").getAsString();
+        String tag = jsonObject.get("tag").getAsString();
+        String imageData = jsonObject.get("imageData").getAsString();
 
+        if(passwordAtribute!=null && usernameAtribute!=null && description!=null){
+            Post post = new Post();
+            post.setPicUrl(imageData);
+            post.setPostText(description);
+            post.setTitle(tag);
+            NewPostController newPostController = new NewPostController();
+            newPostController.addPost(post, usernameAtribute);
+        }else {
+        }
     }
 }
