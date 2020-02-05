@@ -55,11 +55,11 @@
   margin-left: 20px;
 }
 
-#register input[type="text"]:focus {
+input[type="text"]:focus {
   border: none;
 }
 
-#register input[type="text"] {
+input[type="text"] {
    border: none;
    border-radius: none;
    background: transparent;
@@ -74,7 +74,7 @@
   -webkit-text-stroke-color: #bda97a;
 }
 
-#register input[type="password"] {
+input[type="password"] {
    border: none;
    border-radius: none;
    background: transparent;
@@ -88,26 +88,26 @@
    -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #bda97a;
 }
-#register input::placeholder {
+input::placeholder {
   color:  #bda97a;
   font-weight: bolder;
 
     text-align:center;
 
 }
-#register button{
+button{
   border: none;
   background: transparent;
 }
 
-#register a{
+a{
   text-decoration: none;
   color: #706447;
   font-size: 22px;
   font-family: "Microsoft Sans Serif";
   font-weight: normal;
 }
-#register .checkbox-container {
+.checkbox-container {
   display: block;
   position: relative;
   left:115px;
@@ -121,7 +121,7 @@
   user-select: none;
 }
 
-#register .checkbox-container input {
+.checkbox-container input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -129,7 +129,7 @@
   width: 0;
 }
 
-#register .checkmark {
+.checkmark {
   position: absolute;
   top: 0;
   left: 0;
@@ -138,24 +138,24 @@
   background-color: #ffecbf;
 }
 
-#register .checkbox-container:hover input ~ .checkmark {
+.checkbox-container:hover input ~ .checkmark {
   background-color: #cab688;
 }
 
-#register .checkbox-container input:checked ~ .checkmark {
+.checkbox-container input:checked ~ .checkmark {
   background-color: #706447;
 }
 
-#register .checkmark:after {
+.checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
-#register .checkbox-container input:checked ~ .checkmark:after {
+.checkbox-container input:checked ~ .checkmark:after {
   display: block;
 }
 
-#register .checkbox-container .checkmark:after {
+.checkbox-container .checkmark:after {
   left: 9px;
   top: 5px;
   width: 5px;

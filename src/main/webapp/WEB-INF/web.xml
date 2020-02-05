@@ -2,43 +2,18 @@
  "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
-<web-app>
+<web-app
+  version="3.1"
+  metadata-complete="false"
+  xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+  >
   <display-name>Archetype Created Web Application</display-name>
 
-  <servlet>
-    <servlet-name>HelloServlet</servlet-name>
-    <servlet-class>servlet.ServletController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>HelloServlet</servlet-name>
-    <url-pattern>/servlet</url-pattern>
-  </servlet-mapping>
 
-  <servlet>
-    <servlet-name>draw</servlet-name>
-    <jsp-file>/pencilpen/draw.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>draw</servlet-name>
-    <url-pattern>/draw</url-pattern>
-  </servlet-mapping>
 
-  <servlet>
-    <servlet-name>gallery</servlet-name>
-    <jsp-file>/pencilpen/gallery.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>gallery</servlet-name>
-    <url-pattern>/gallery</url-pattern>
-  </servlet-mapping>
 
-  <servlet>
-    <servlet-name>register</servlet-name>
-    <jsp-file>/pencilpen/register.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>register</servlet-name>
-    <url-pattern>/register</url-pattern>
-  </servlet-mapping>
+
 
 </web-app>

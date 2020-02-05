@@ -45,14 +45,13 @@
   margin: 10px;
 }
 
-#colors{
-}
 
-#panel-wraper input[type="text"]:focus, textarea:focus {
+
+input[type="text"]:focus, textarea:focus {
   border: none;
 }
 
-#panel-wraper input[type="text"],textarea  {
+input[type="text"],textarea  {
   border: none;
   outline: none;
   height: 40px;
@@ -68,14 +67,14 @@
   width: 200px;
 }
 
-#panel-wraper input::placeholder, #panel-wraper textarea::placeholder {
+input::placeholder, textarea::placeholder {
   color:  #bda97a;
 
   padding-left: 8px;
   font-weight: bolder;
 }
-#panel-wraper input[type="button"]{
-   border-radius: 20px;
+input[type="button"]{
+  border-radius: 20px;
   height: 40px;
   width: 40px;
   margin-top: 5px;
@@ -84,7 +83,7 @@
   font-size: 20px;
   background: #706447;
 }
-#panel-wraper input[type="submit"]{
+input[type="submit"]{
    border-radius: 20px;
   height: 40px;
   width: 95px;
@@ -94,14 +93,14 @@
   font-size: 20px;
   background: #706447;
 }
-#panel-wraper a{
+a{
   text-decoration: none;
   color: #706447;
   font-size: 22px;
   font-family: "Microsoft Sans Serif";
   font-weight: normal;
 }
-#panel-wraper p{
+p{
   color: #706447;
   font-size: 22px;
   margin: 5px 0 0 0;

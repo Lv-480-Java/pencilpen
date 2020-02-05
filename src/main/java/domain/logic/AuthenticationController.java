@@ -6,6 +6,7 @@ import domain.exception.registration.AlreadyExistsException;
 import domain.exception.registration.PasswordException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 public class AuthenticationController {
 
@@ -42,5 +43,17 @@ public class AuthenticationController {
         } else {
             throw new AlreadyExistsException("not good");
         }
+    }
+
+    public boolean login(String nickname, String pass){
+        Mapper<User> userMapper = new Mapper<>(User.class);
+        List<User> userList =  userMapper.getBy("nickname", nickname);
+        if(userList.size()>0) {
+            if (userList.get(0).getPass().equals(pass)) {
+                System.out.println("ITS OKAY");
+                return true;
+            }
+        }
+        return false;
     }
 }

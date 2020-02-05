@@ -3,6 +3,7 @@ package domain.entity;
 import dao.Mapper;
 import dao.TableName;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,8 @@ public class Post {
     private Mapper<Tag> tagListMapper = new Mapper<>(Tag.class);
 
 
+    public Post(){
+    }
     public void addLike(Pleasant like) {
         likeList.add(like);
     }
