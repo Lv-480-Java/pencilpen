@@ -56,7 +56,8 @@ window.addEventListener("load", function onWindowLoad() {
     $.ajax({
         url: '/add',
         type: 'POST',
-        data: $('form').serialize(),
+        data: {img: formdata,
+                }
         processData: false,
         contentType: "text/html",
         success: function(data){
