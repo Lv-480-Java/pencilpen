@@ -14,6 +14,7 @@ public class Post {
     private String postText;
     private String picUrl;
     private int userId;
+    private String nickname;
     private String title;
     private String postDate;
     private String location;
@@ -106,5 +107,37 @@ public class Post {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getUsername() {
+        return nickname;
+    }
+
+    public void setUsername(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public List<Pleasant> getLikeList() {
+        return likeList;
+    }
+
+    public void setLikeList(List<Pleasant> likeList) {
+        this.likeList = likeList;
+    }
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
+
+    public List<Tag> getTagList() {
+        return tagList;
+    }
+
+    public void setTagList(List<Tag> tagList) {
+        this.tagList = tagList;
     }
 }

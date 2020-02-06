@@ -22,6 +22,7 @@ public class RegisterServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AuthenticationController authenticationController = new AuthenticationController();
         authenticationController.register(request);
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/login.jsp");
         request.setAttribute("text-result", "Success! Now you can login with your data");
         dispatcher.forward(request, response);

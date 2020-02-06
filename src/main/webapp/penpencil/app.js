@@ -8,6 +8,9 @@ window.addEventListener("load", function onWindowLoad() {
 
   context.lineCap = "round";
   context.lineWidth = 10;
+  
+  context.fillStyle = "white";
+  context.fillRect(0, 0, canvas.width, canvas.height);
 
   var button_plus = document.getElementById("bigger");
   var button_minus = document.getElementById("smaller");

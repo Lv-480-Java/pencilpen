@@ -11,66 +11,55 @@
   </head>
   <body>
 
-    <jsp:include page="penpencil/parts/menu.jsp" />
+    <jsp:include page="parts/menu.jsp" />
     <%@ page import="java.util.*"%>
+    <%@ page import="domain.entity.*" %>
 
+     <%
+        List<Post> postList = (ArrayList<Post>) request.getAttribute("postList");
+     %>
 
-    <div class="content-block">
-      <div class="content-frame">
-        <div class="username-div">
-          <p>Usdsdasefesefme</p>
-        </div>
-          <div class="like-block">
-            <img height= 60px src="penpencil\ui\picture\content-block\like.png" alt="like">
-            <div class="like-div">
-              <p>NaN</p>
-            </div>
-          </div>
-          <div class="text-block">
-            <p>some part of very interesting text for a filler</p>
-          </div>
-          <div class="tag-container">
-            <div class="tag1">
-                <p>very col tag fo a life</p>
-            </div>
-          </div>
-        </div>
-          <img class="image" height =90px src="penpencil/ui/picture/content-block/test-image.png" alt="images">
-    </div>
-
-    <div class="comment-wrapper">
-    <div class="comment">
-      <div class="comment-username"><p>boriskontent</p></div>
-      <div class="comment-text"><p>f vmlasmp feboriskoery iomment-nteresting </p></div>
-    </div>
-    </div>
-
-    <div class="comment-wrapper">
-      <div class="comment">
-        <div class="comment-username"><p>boriskontent</p></div>
-        <div class="comment-text"><p>f vmlasmp feboriskoery iomment-nteresting </p></div>
-      </div>
-      </div>
-
-      <div id="comment-add-wrapper">
+     <div id="find-wrapper">
         <form action="action_page.php" method="post">
-          <div id="comment-add-container">
-            <input id="comment-add" class="input-field" type="text" placeholder="Write comment" name="tag" required>
-            <button id="comment-add-button" type="submit">F</button>
+          <div id="find-container">
+            <input id="find-by-tag" class="input-field" type="text" placeholder="find by tag" name="tag" required>
+            <button id="find-button" type="submit">F</button>
+          </div>
+        </form>
+      </div>
+
+
+     <% for(Post post: postList){ %>
+     <a href="/post?post-id=<%= post.getId()%>">
+        <div class="content-block">
+              <div class="content-frame">
+                <div class="username-div">
+                  <p><%= post.getUsername() %></p>
+                </div>
+                  <div class="like-block">
+                    <img height= 60px src="penpencil\ui\picture\content-block\like.png" alt="like">
+                    <div class="like-div">
+                      <p><%= post.getLikeList().size() %></p>
+                    </div>
+                  </div>
+                  <div class="text-block">
+                    <p><%= post.getPostText() %></p>
+                  </div>
+                  <div class="tag-container">
+                    <div class="tag1">
+                        <p><%= post.getTitle() %></p>
+                    </div>
+                  </div>
+                </div>
+
+
+                  <img class="image" height =90px src="data:image/png;base64, <%= post.getPicUrl() %>" alt="images">
+
             </div>
-         </form>
-      </div>
+            </a>
 
-
-      <div id="error-window-wrapper">
-        <div id="error-window">
-        <a href="#" onclick="document.getElementById('error-window-wrapper').style.display='none';return false;" id="close_popup"><p id="error-text">Very bad message make it beter</p></a>
-        </div>
-      </div>
-
-
-
-
+    <% }
+        %>
 
   </body>
 </html>

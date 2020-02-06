@@ -5,7 +5,8 @@ import dao.TableName;
 @TableName(name="Comment")
 public class Comment  {
     private int userId;
-    private int postId;
+    private String nickname;
+    private String postId;
     private String addDate;
     private String commentText;
     private int id;
@@ -23,11 +24,11 @@ public class Comment  {
                 '}';
     }
 
-    public int getPostId() {
+    public String getPostId() {
         return postId;
     }
 
-    public void setPostId(int postId) {
+    public void setPostId(String postId) {
         this.postId = postId;
     }
 
@@ -61,5 +62,13 @@ public class Comment  {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }
