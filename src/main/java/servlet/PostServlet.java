@@ -2,9 +2,7 @@ package servlet;
 
 import dao.Mapper;
 import domain.entity.Comment;
-import domain.entity.Post;
-import domain.entity.User;
-import domain.logic.NewPostController;
+import domain.service.PostService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,11 +21,8 @@ public class PostServlet extends HttpServlet {
         String postId = (String) request.getParameter("post-id");
 
         if(postId!=null) {
-            Mapper<Comment> commentMapper = new Mapper<>(Comment.class); //FIXME винести маппер на леєр пофіксити севрелт
-            List<Comment> comments = commentMapper.getBy("postId",""+postId );
-            NewPostController controller = new NewPostController();
+            PostService controller = new PostService();
 
-            request.setAttribute("commentList", comments);
             request.setAttribute("post", controller.getPost(postId));
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/post.jsp");
@@ -41,12 +36,11 @@ public class PostServlet extends HttpServlet {
         String passwordAtribute = (String) session.getAttribute("password");
         String usernameAtribute = (String) session.getAttribute("username");
 
-
         String commentAtr = (String) request.getAttribute("comment-add");
         if(passwordAtribute!=null &&
            usernameAtribute!=null &&
            commentAtr!=null){
-                NewPostController controller = new NewPostController();
+                PostService controller = new PostService();
                 controller.addComment(request, session);
         }
     }

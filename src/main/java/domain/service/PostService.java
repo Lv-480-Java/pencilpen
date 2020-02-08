@@ -1,4 +1,4 @@
-package domain.logic;
+package domain.service;
 
 import dao.Mapper;
 import domain.entity.Comment;
@@ -8,7 +8,7 @@ import domain.entity.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class NewPostController {
+public class PostService {
 
     public void addPost(Post post) {
         Mapper<User> userMapper = new Mapper<>(User.class);

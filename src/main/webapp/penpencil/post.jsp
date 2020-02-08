@@ -16,63 +16,57 @@
             <jsp:include page="parts/menu.jsp" />
             <%@ page import="java.util.*"%>
                 <%@ page import="domain.entity.*" %>
-                    <%
-                 Post post = (Post) request.getAttribute("post");
-              %>
+
+                    <c:set var="post" value="${post}"/>
                         <div class="post-block">
                             <div class="post-frame">
-                                <img class="image-post" src="data:image/png;base64, <%= post.getPicUrl() %>" alt="images">
+                                <img class="image-post" src="data:image/png;base64, ${ post.getPicUrl() }" alt="images">
                                 <div class="text-post">
                                     <p>
-                                        <%= post.getPostText() %>
+                                        ${ post.getPostText() }
                                     </p>
                                 </div>
                                 <div class="username-post">
                                     <p>
-                                        <%= post.getUsername() %>
+                                        ${ post.getUsername() }
                                     </p>
                                 </div>
                                 <div class="like-div-post">
                                     <p id="likee">
-                                        <%= post.getLikeList().size() %>
+                                        ${ post.getLikeList().size() }
                                     </p>
                                     <img height=60px src="penpencil\ui\picture\content-block\like.png" alt="like">
                                 </div>
                                 <div class="tag-post">
                                     <p class="post-tag-text">
-                                        <%= post.getTitle() %>
+                                        ${ post.getTitle() }
                                     </p>
                                 </div>
                             </div>
                         </div>
 
-                        <%
-        List<Comment> commentList = (ArrayList<Comment>) request.getAttribute("commentList");
-     %>
 
-                            <% for(Comment comment: commentList){ %>
+                        <c:forEach var="comment" items="${post.getCommentList()}">
                                 <div class="comment-wrapper">
                                     <div class="comment">
                                         <div class="comment-username">
                                             <p>
-                                                <%=comment.getNickname()%>
+                                                ${comment.getNickname()}
                                             </p>
                                         </div>
                                         <div class="comment-text">
                                             <p>
-                                                <%=comment.getCommentText()%>
+                                                ${comment.getCommentText()}
                                             </p>
                                         </div>
                                     </div>
                                 </div>
-
-                                <% }
-        %>
+                            </c:forEach>
 
                                     <div id="comment-add-wrapper">
                                         <form action="/comment" method="get">
                                             <div id="comment-add-container">
-                                                <input id="post-id" class="input-field" type="text" value="<%= post.getId() %>" name="post-id" hidden>
+                                                <input id="post-id" class="input-field" type="text" value="${ post.getId() }" name="post-id" hidden>
                                                 <input id="comment-add" class="input-field" type="text" placeholder="Write comment" name="comment-add" required>
                                                 <button id="comment-add-button" type="submit">F</button>
                                             </div>

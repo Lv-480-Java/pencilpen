@@ -25,7 +25,7 @@
         </div>
 
         <div class='menu-div'>
-          <a href='/profile'>
+          <a href='/profile?username=<%=name%>'>
             <img height =90px src="penpencil/ui/picture/menu/profile.png" alt="add">
           </a>
         </div>

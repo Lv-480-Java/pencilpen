@@ -1,4 +1,4 @@
-package domain.logic;
+package domain.service;
 
 import dao.Mapper;
 import domain.entity.User;
@@ -8,21 +8,19 @@ import domain.exception.registration.PasswordException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public class AuthenticationController {
+public class Authentication {
 
-    public void register(HttpServletRequest request) {
+    public void register(User userToRegister, String passwordRepeat) {
 
-        String email = request.getParameter("email");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String repeatedPassword = request.getParameter("password-repeat");
-
+        String username = userToRegister.getNickname();
+        String password = userToRegister.getPass();
+        String email = userToRegister.getEmail();
         Mapper<User> mapper = new Mapper<>(User.class);
 
         if (mapper.getBy("email", email).size()==0 &&
             mapper.getBy("nickname", username).size()==0) {
 
-            if (password.equals(repeatedPassword) &&
+            if (password.equals(passwordRepeat) &&
                 password.length() > 7 &&
                 password.length() < 50) {
                 if (email.length() < 50 &&
@@ -45,7 +43,10 @@ public class AuthenticationController {
         }
     }
 
-    public boolean login(String nickname, String pass){
+    public boolean validate(String nickname, String pass){
+        if(nickname==null || pass==null){
+            return false;
+        }
         Mapper<User> userMapper = new Mapper<>(User.class);
         List<User> userList =  userMapper.getBy("nickname", nickname);
         if(userList.size()>0) {

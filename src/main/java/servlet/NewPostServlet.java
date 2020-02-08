@@ -1,6 +1,5 @@
 package servlet;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,11 +11,7 @@ import java.io.*;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import domain.entity.Post;
-import domain.logic.NewPostController;
-import org.apache.commons.codec.binary.Base64;
-
-import java.util.UUID;
-import java.util.stream.Collectors;
+import domain.service.PostService;
 
 
 @WebServlet("/add")
@@ -55,7 +50,7 @@ public class NewPostServlet extends HttpServlet {
                 post.setTitle(tag);
                 post.setUsername(usernameAtribute);
 
-                NewPostController newPostController = new NewPostController();
+                PostService newPostController = new PostService();
                 newPostController.addPost(post);
         }
     }

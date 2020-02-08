@@ -6,10 +6,12 @@
     font-family: "Arial";
     text-align: center;
     margin-bottom: 25px;
+
 }
 
 .content-block a {
     text-decoration: none;
+    pointer-events: all;
 }
 
 .content-frame {
@@ -24,6 +26,7 @@
 }
 
 .username-div {
+z-index:10;
     text-align: left;
     position: relative;
     height: 40px;
@@ -35,6 +38,7 @@
     font-weight: bolder;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 20px;
+    pointer-events: all;
 }
 
 .username-div p {
@@ -49,6 +53,7 @@
     bottom: 65px;
     text-align: right;
     width: auto;
+    pointer-events: all;
 }
 
 .like-div {
@@ -60,6 +65,7 @@
     bottom: 70px;
     right: 50px;
     color: white;
+    pointer-events: all;
 }
 
 .text-block {
@@ -72,7 +78,7 @@
 
 .tag-container {
     font-style: normal;
-    z-index: -1;
+    z-index: 10;
     color: #27445a;
     position: absolute;
     bottom: -10px;
@@ -80,13 +86,20 @@
     background-color: #6cc2bd;
     border-radius: 0 0 10px 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    pointer-events: all;
+    height:28px;
+    -webkit-box-shadow: inset 0px 50px 7px -47px rgba(0,0,0,0.58);
+    -moz-box-shadow: inset 0px 50px 7px -47px rgba(0,0,0,0.58);
+    box-shadow: inset 0px 50px 7px -47px rgba(0,0,0,0.58);
 }
 
 .tag1 {
     position: relative;
-    top: 15px;
     z-index: -1;
-    padding: 10px 10px 0 10px;
+    padding: 0px 10px 0 10px;
+    pointer-events: all;
+    bottom:18px;
+    height:20px;
 }
 
 .image {
@@ -97,6 +110,8 @@
     height: 168px;
     bottom: -40px;
     transform: translate(-50%, -50%);
+    pointer-events: all;
+
 }
 
 #find-wrapper {

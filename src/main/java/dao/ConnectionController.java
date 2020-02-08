@@ -1,8 +1,9 @@
 package dao;
 
 
+import org.apache.log4j.Logger;
+
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,67 +12,48 @@ import java.util.Properties;
 
 public class ConnectionController {
 
-
+    private Logger log = Logger.getLogger(Mapper.class.getName());
     private String dbUrl;
     private String dbUsername;
     private String dbPassword;
     private String driver;
+    Connection connection;
 
-    public ConnectionController(String propertiesDir) throws FileNotFoundException {
+    private void initializeParameters() {
         FileInputStream fis;
         Properties property = new Properties();
-        FileInputStream fileInputStream ;
-
+        FileInputStream fileInputStream;
+        String propertiesDir = "src/main/resources/database.properties";
         try {
             fileInputStream = new FileInputStream(propertiesDir);
             property.load(fileInputStream);
 
-            if (!propertiesDir.isEmpty()) {
-                driver = property.getProperty("JDBC_DRIVER");
-                dbUrl = property.getProperty("DB_URL");
-                dbUsername = property.getProperty("DB_USERNAME");
-                dbPassword = property.getProperty("DB_PASSWORD");
-                System.out.println(driver+dbUrl+dbUsername+dbPassword);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            driver = property.getProperty("JDBC_DRIVER");
+            dbUrl = property.getProperty("DB_URL");
+            dbUsername = property.getProperty("DB_USERNAME");
+            dbPassword = property.getProperty("DB_PASSWORD");
+
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("File propertis cannot be opened ",e);
         }
-
     }
 
-    public Connection getConnection() {
+    private void initializeDriver() {
         try {
-            try {
-                Class.forName(driver);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-            return DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+            Class.forName(driver);
+        } catch (ClassNotFoundException e) {
+           log.error("Cannot register JDBC Driver",e);
+        }
+    }
+
+    Connection getConnection() {
+        initializeParameters();
+        initializeDriver();
+        try {
+            connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
         } catch (SQLException e) {
-            throw new RuntimeException("CANNOT CONECT TO DATABASE!!", e);
+            log.error("Cannot create connection", e);
         }
+        return connection;
     }
-
-    public static void disconnect(Connection connection) {
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void close(Object... objects) {
-        if (objects != null) {
-            for (Object o : objects) {
-                ;
-            }
-        }
-    }
-
-
-
 }

@@ -1,7 +1,7 @@
 package servlet;
 
 
-import domain.logic.AuthenticationController;
+import domain.service.Authentication;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,10 +34,11 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         String passwordAtribute = (String) session.getAttribute("password");
-        AuthenticationController authenticationController = new AuthenticationController();
+        Authentication authentication = new Authentication();
 
         if (passwordAtribute == null) {
-            if (authenticationController.login(username, password)) {
+            session = request.getSession(true);
+            if (authentication.validate(username, password)) {
 
                 session.setAttribute("password", password);
                 session.setAttribute("username", username);

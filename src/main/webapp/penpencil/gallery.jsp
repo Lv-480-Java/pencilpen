@@ -12,14 +12,9 @@
         </head>
 
         <body>
-
             <jsp:include page="parts/menu.jsp" />
             <%@ page import="java.util.*"%>
                 <%@ page import="domain.entity.*" %>
-
-                    <%
-        List<Post> postList = (ArrayList<Post>) request.getAttribute("postList");
-     %>
 
                         <div id="find-wrapper">
                             <form action="action_page.php" method="post">
@@ -30,47 +25,49 @@
                             </form>
                         </div>
 
-
-                        <% for(Post post: postList){ %>
-                            <a href="/post?post-id=<%= post.getId()%>">
+                        <c:forEach var="post" items="${postList}">
                                 <div class="content-block">
                                     <div class="content-frame">
+                                     <a href="/profile?username=${post.getUsername()}">
                                         <div class="username-div">
                                             <p>
-                                                <%= post.getUsername() %>
+                                            ${post.getUsername()}
                                             </p>
                                         </div>
+                                            </a>
                                         <div class="like-block">
                                             <img height=60px src="penpencil\ui\picture\content-block\like.png" alt="like">
                                             <div class="like-div">
                                                 <p>
-                                                    <%= post.getLikeList().size() %>
+                                                ${post.getLikeList().size()}
                                                 </p>
                                             </div>
                                         </div>
+
+                            <a href="/post?post-id= ${post.getId()}">
                                         <div class="text-block">
                                             <p>
-                                                <%= post.getPostText() %>
+                                                ${post.getPostText()}
                                             </p>
                                         </div>
+
+                                            </a>
+
                                         <div class="tag-container">
                                             <div class="tag1">
                                                 <p>
-                                                    <%= post.getTitle() %>
+                                                ${post.getTitle()}
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
 
+                            <a href="/post?post-id= ${post.getId()}">
+                                    <img class="image" height=90px src="data:image/png;base64, ${post.getPicUrl()}" alt="images">
 
-                                    <img class="image" height=90px src="data:image/png;base64, <%= post.getPicUrl() %>" alt="images">
-
+                                            </a>
                                 </div>
                             </a>
-
-                            <% }
-        %>
-
+                        </c:forEach>
         </body>
-
         </html>

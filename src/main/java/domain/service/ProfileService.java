@@ -1,11 +1,11 @@
-package domain.logic;
+package domain.service;
 
 import dao.Mapper;
 import domain.entity.Post;
 
 import java.util.List;
 
-public class ProfileController {
+public class ProfileService {
 
     public List<Post> getUsersPosts(String username){
         Mapper<Post> postMapper = new Mapper<>(Post.class);

@@ -31,7 +31,7 @@
                         <div id="profile-deck">
                             <div class="naming">
                                 <p>
-                                    <%= (String)session.getAttribute("username")%>
+                                    <%= (String) request.getParameter("username") %>
                                 </p>
                             </div>
                         </div>

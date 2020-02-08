@@ -1,8 +1,7 @@
 package servlet;
 
-import domain.logic.NewPostController;
+import domain.service.PostService;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,7 +27,7 @@ public class CommentServlet extends HttpServlet {
         if (passwordAtribute != null &&
             usernameAtribute != null &&
             commentAtr != null) {
-                NewPostController controller = new NewPostController();
+                PostService controller = new PostService();
                 controller.addComment(request, session);
         }else {
             System.out.println("WRONG");

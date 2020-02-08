@@ -1,8 +1,8 @@
 package servlet;
 
 import domain.entity.Post;
-import domain.logic.AuthenticationController;
-import domain.logic.ProfileController;
+import domain.service.Authentication;
+import domain.service.ProfileService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,12 +20,22 @@ public class ProfileServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
 
-        String passwordAtribute = (String) session.getAttribute("password");
-        String usernameAtribute = (String) session.getAttribute("username");
+        String username = (String) session.getAttribute("username");
+        String password = (String) session.getAttribute("password");
 
-        if(passwordAtribute!=null && usernameAtribute!=null){
-            ProfileController profileController = new ProfileController();
-            List<Post> postList =  profileController.getUsersPosts(usernameAtribute);
+        Authentication auth = new Authentication();
+
+        if(auth.validate(username, password)){
+
+            String postUsername = (String) request.getParameter("username");
+            ProfileService profileService = new ProfileService();
+            List<Post> postList ;
+            if(postUsername==null) {
+                request.setAttribute("username", username);
+                postList = profileService.getUsersPosts(username);
+            }else {
+                postList = profileService.getUsersPosts(postUsername);
+            }
 
             Collections.reverse(postList);
             request.setAttribute("postList", postList);
