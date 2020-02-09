@@ -18,11 +18,8 @@ public class Mapper<T> {
     private Field[] allFields;
     private Field idField;
     private String tableName = null;
-    private final String sqlSelectQuery = "SELECT %s FROM %s WHERE %s = \"%s\"";
-    private final String sqlSelectAllQuery = "SELECT %s FROM %s";
 
-    private final String SqlInsertQuery = "INSERT INTO %s (%s) values (%s)";
-    private final String SqlUpdateQuery = "UPDATE %s SET %s WHERE id = \"%s\"";
+    private QueryProducer<T> queryProducer ;
 
     public Mapper(Class<T> typeParameterClass) {
         this.typeParameterClass = typeParameterClass;
@@ -36,6 +33,12 @@ public class Mapper<T> {
                 idField.setAccessible(true);
             }
         }
+
+        queryProducer = new QueryProducer<>(
+                allFields,
+                tableName,
+                idField
+        );
     }
 
     private void getTableName() {
@@ -48,109 +51,6 @@ public class Mapper<T> {
         } else {
             throw new AnnotationFormatError("no annotation \"TableName\" or annotation parameter is not ok");
         }
-    }
-
-    private String getAllFields() {
-        StringBuilder fieldsString = new StringBuilder("");
-
-        for (Field field : allFields) {
-            if (!fieldIsList(field)) {
-                fieldsString
-                        .append(", ")
-                        .append(field.getName());
-            }
-        }
-        StringBuilder fields = new StringBuilder(
-                fieldsString
-                        .toString()
-                        .replaceFirst(",", "")
-        );
-        return fields.toString();
-    }
-
-    private String getSqlSelectQuery(String fieldName, String fieldValue) {
-        StringBuilder fieldsString = new StringBuilder("");
-
-        String fields = getAllFields();
-        String sqlQuery = String.format(sqlSelectQuery, fields, tableName, fieldName, fieldValue);
-
-        System.out.println(sqlQuery);
-        return sqlQuery;
-    }
-
-    private String getSqlSelectAllQuery() {
-
-        String fields = getAllFields();
-        String sqlQuery = String.format(sqlSelectAllQuery, fields, tableName);
-
-        System.out.println(sqlQuery);
-        return sqlQuery;
-
-    }
-
-    private String getSqlInsertQuery(T objectToAdd) throws IllegalAccessException {
-        StringBuilder sqlQueryColumns = new StringBuilder();
-        StringBuilder sqlQueryValues = new StringBuilder();
-
-        for (Field field : allFields) {
-            field.setAccessible(true);
-
-            if (!(fieldIsList(field) ||
-                  field.getName().equals("id") ||
-                  field.get(objectToAdd) == null
-            )) {
-                sqlQueryColumns.append(", ").append(field.getName());
-                try {
-                    sqlQueryValues.append(", \"").append(field.get(objectToAdd)).append("\"");
-                } catch (IllegalAccessException e) {
-                    log.error("Cannot get acces to field", e);
-                }
-            }
-        }
-        sqlQueryColumns = new StringBuilder(sqlQueryColumns.toString().replaceFirst(",", ""));
-        sqlQueryValues = new StringBuilder(sqlQueryValues.toString().replaceFirst(",", ""));
-
-        String sqlQuery = String.format(SqlInsertQuery, tableName, sqlQueryColumns, sqlQueryValues);
-
-        System.out.println(sqlQuery);
-        return sqlQuery.toString();
-    }
-
-    private String getColumnsForIsnertion(T objectToUpdate) throws IllegalAccessException {
-        StringBuilder sqlQueryColumns = new StringBuilder();
-
-        for (Field field : allFields) {
-            if (!(field.getType().getName().equals("java.util.List") ||
-                    field.getType().getName().equals("dao.Mapper") ||
-                    field.getName().equals("id")
-            )) {
-                field.setAccessible(true);
-                sqlQueryColumns.append(", ")
-                               .append(field.getName())
-                               .append(" = \"")
-                               .append(field.get(objectToUpdate))
-                               .append("\"");
-            }
-        }
-        sqlQueryColumns = new StringBuilder(sqlQueryColumns.toString().replaceFirst(",", ""));
-        return sqlQueryColumns.toString();
-    }
-
-    private String getSqlUpdateQuery(T objectToUpdate) {
-        String sqlQuery = "";
-        StringBuilder sqlQueryColumns = new StringBuilder();
-        try {
-            sqlQueryColumns.append(getColumnsForIsnertion(objectToUpdate));
-
-            sqlQuery = String.format(SqlUpdateQuery,
-                                     tableName,
-                                     sqlQueryColumns,
-                                     idField.get(objectToUpdate));
-            System.out.println(sqlQuery);
-        } catch (IllegalAccessException e) {
-            log.error("Cannot get acces to field", e);
-        }
-        return sqlQuery;
     }
 
     private boolean checkFieldExist(String fieldName){
@@ -203,7 +103,7 @@ public class Mapper<T> {
     public List<T> getBy(String fieldName, String fieldValue) {
         List<T> entityList = new ArrayList<T>();
 
-        String sqlQuery = getSqlSelectQuery(fieldName, fieldValue);
+        String sqlQuery = queryProducer.getSqlSelectQuery(fieldName, fieldValue);
 
         if(fieldName==null || fieldValue==null){throw new IllegalArgumentException();}
         if (!checkFieldExist(fieldName)) {
@@ -251,7 +151,7 @@ public class Mapper<T> {
     public void addField(T objectToAdd) {
         if (objectToAdd != null) {
             try {
-                String sql = getSqlInsertQuery(objectToAdd);
+                String sql = queryProducer.getSqlInsertQuery(objectToAdd);
                 try (Connection connection = new ConnectionController().getConnection();
                      PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                      statement.execute();
@@ -278,7 +178,7 @@ public class Mapper<T> {
                 }
                 connectionController = new ConnectionController();
                 try (Connection connection = connectionController.getConnection()) {
-                    String sql = getSqlUpdateQuery(objectToUpdate);
+                    String sql = queryProducer.getSqlUpdateQuery(objectToUpdate);
                     statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                     statement.execute();
                     try (ResultSet resultSet = statement.getGeneratedKeys()) {
@@ -327,7 +227,7 @@ public class Mapper<T> {
     public List<T> getAll() {
         List<T> entityList = new ArrayList<T>();
 
-        String sqlQuery = getSqlSelectAllQuery();
+        String sqlQuery = queryProducer.getSqlSelectAllQuery();
         try (Connection connection = (new ConnectionController()).getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
             ResultSet resultSet = preparedStatement.executeQuery();

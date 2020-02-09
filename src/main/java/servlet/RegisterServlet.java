@@ -1,7 +1,7 @@
 package servlet;
 
 import domain.entity.User;
-import domain.service.Authentication;
+import domain.service.AuthenticationService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,7 +21,7 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Authentication authenticationController = new Authentication();
+        AuthenticationService authenticationServiceController = new AuthenticationService();
 
         String email = request.getParameter("email");
         String username = request.getParameter("username");
@@ -29,7 +29,7 @@ public class RegisterServlet extends HttpServlet {
         String repeatedPassword = request.getParameter("password-repeat");
 
         User userToRegister = new User(email,username,password);
-        authenticationController.register(userToRegister,repeatedPassword);
+        authenticationServiceController.register(userToRegister,repeatedPassword);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/login.jsp");
         request.setAttribute("text-result", "Success! Now you can login with your data");

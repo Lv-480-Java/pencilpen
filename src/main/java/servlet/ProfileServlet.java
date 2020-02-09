@@ -1,7 +1,7 @@
 package servlet;
 
 import domain.entity.Post;
-import domain.service.Authentication;
+import domain.service.AuthenticationService;
 import domain.service.ProfileService;
 
 import javax.servlet.RequestDispatcher;
@@ -23,7 +23,7 @@ public class ProfileServlet extends HttpServlet {
         String username = (String) session.getAttribute("username");
         String password = (String) session.getAttribute("password");
 
-        Authentication auth = new Authentication();
+        AuthenticationService auth = new AuthenticationService();
 
         if(auth.validate(username, password)){
 

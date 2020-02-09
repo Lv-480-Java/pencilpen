@@ -2,6 +2,7 @@ package domain.service;
 
 import dao.Mapper;
 import domain.entity.Comment;
+import domain.entity.Pleasant;
 import domain.entity.Post;
 import domain.entity.User;
 
@@ -47,10 +48,43 @@ public class PostService {
         postMapper.addField(comment);
     }
 
-    public List<Post> getAllPosts(){
+    public List<Post> getAllPosts() {
         Mapper<Post> postMapper = new Mapper<>(Post.class);
         List<Post> posts = postMapper.getAll();
         Collections.reverse(posts);
         return posts;
+    }
+
+    public void addLike(String postId, String username) {
+
+        Mapper<Post> mapper = new Mapper<>(Post.class);
+        List<Post> postList = mapper.getBy("id", postId);
+
+        Mapper<User> userList = new Mapper<>(User.class);
+        int userId = userList.getBy("nickname", username).get(0).getId();
+
+
+        Mapper<Pleasant> pleasantMapper = new Mapper<>(Pleasant.class);
+        List<Pleasant> likeList = postList.get(0).getLikeList();
+
+        boolean isLikedByUser = false;
+        for (Pleasant like : likeList) {
+            if (like.getUserId() == userId) {
+                isLikedByUser = true;
+                dislikePost(like, pleasantMapper);
+                break;
+            }
+        }
+        if (!isLikedByUser) {
+            Pleasant like = new Pleasant();
+            like.setPostId(Integer.parseInt(postId));
+            like.setUserId(userId);
+
+            pleasantMapper.addField(like);
+        }
+    }
+
+    private void dislikePost(Pleasant like, Mapper<Pleasant> pleasantMapper) {
+        pleasantMapper.deleteField(like);
     }
 }

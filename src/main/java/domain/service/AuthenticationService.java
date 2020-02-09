@@ -8,7 +8,7 @@ import domain.exception.registration.PasswordException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public class Authentication {
+public class AuthenticationService {
 
     public void register(User userToRegister, String passwordRepeat) {
 
@@ -43,7 +43,7 @@ public class Authentication {
         }
     }
 
-    public boolean validate(String nickname, String pass){
+    public static boolean validate(String nickname, String pass){
         if(nickname==null || pass==null){
             return false;
         }

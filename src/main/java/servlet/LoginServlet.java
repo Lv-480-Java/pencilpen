@@ -1,7 +1,7 @@
 package servlet;
 
 
-import domain.service.Authentication;
+import domain.service.AuthenticationService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,16 +34,16 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         String passwordAtribute = (String) session.getAttribute("password");
-        Authentication authentication = new Authentication();
+        AuthenticationService authenticationService = new AuthenticationService();
 
         if (passwordAtribute == null) {
             session = request.getSession(true);
-            if (authentication.validate(username, password)) {
+            if (authenticationService.validate(username, password)) {
 
                 session.setAttribute("password", password);
                 session.setAttribute("username", username);
 
-                response.sendRedirect("/profile");
+                response.sendRedirect("/profile?username="+username);
                 System.out.println(" ITS OKAY");
 
             } else {
