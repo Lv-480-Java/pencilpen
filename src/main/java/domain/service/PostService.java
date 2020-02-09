@@ -7,6 +7,8 @@ import domain.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Collections;
+import java.util.List;
 
 public class PostService {
 
@@ -43,5 +45,12 @@ public class PostService {
         comment.setUserId(userId);
 
         postMapper.addField(comment);
+    }
+
+    public List<Post> getAllPosts(){
+        Mapper<Post> postMapper = new Mapper<>(Post.class);
+        List<Post> posts = postMapper.getAll();
+        Collections.reverse(posts);
+        return posts;
     }
 }

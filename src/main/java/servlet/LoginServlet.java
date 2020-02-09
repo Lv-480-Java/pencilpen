@@ -16,9 +16,9 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        String passwordAtribute = (String) session.getAttribute("password");
+        String passwordAttribute = (String) session.getAttribute("password");
 
-        if (passwordAtribute == null) {
+        if (passwordAttribute == null) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/login.jsp");
             dispatcher.forward(request, response);
         } else {

@@ -23,7 +23,7 @@
 
                     <canvas id="canvas" width="520" height="520"></canvas>
                     <div id="all-panel">
-                        <div id="colors">
+                        <div class="colors">
                             <div class="palete-block" style="background-color: #de4d44"></div>
                             <div class="palete-block" style="background-color: #9e3743"></div>
                             <div class="palete-block" style="background-color: #ff842a"></div>
@@ -31,7 +31,7 @@
                             <div class="palete-block" style="background-color: #c83e74"></div>
                             <div class="palete-block" style="background-color: #909549"></div>
                         </div>
-                        <div id="colors">
+                        <div class="colors">
                             <div class="palete-block" style="background-color: #fed65e"></div>
                             <div class="palete-block" style="background-color: #2e5c9f"></div>
                             <div class="palete-block" style="background-color: #755841"></div>
@@ -39,7 +39,7 @@
                             <div class="palete-block" style="background-color: #686943"></div>
                             <div class="palete-block" style="background-color: #e7b7ce"></div>
                         </div>
-                        <div id="colors">
+                        <div class="colors">
                             <div class="palete-block" style="background-color: #d7c39d"></div>
                             <div class="palete-block" style="background-color: #3a3a50"></div>
                             <div class="palete-block" style="background-color: #f2edd6"></div>
@@ -47,7 +47,7 @@
                             <div class="palete-block" style="background-color: #23ff33"></div>
                             <div class="palete-block" style="background-color: #94b0c2"></div>
                         </div>
-                        <div id="colors">
+                        <div class="colors">
                             <div class="palete-block" style="background-color: #b13e53"></div>
                             <div class="palete-block" style="background-color: #f69a85"></div>
                             <div class="palete-block" style="background-color: #6cc2bd"></div>
@@ -55,7 +55,7 @@
                             <div class="palete-block" style="background-color: #1a1c2c"></div>
                             <div class="palete-block" style="background-color: #333c57"></div>
                         </div>
-                        <div id="colors">
+                        <div class="colors">
                             <div class="palete-block" style="background-color: #5d275d"></div>
                             <div class="palete-block" style="background-color: #41a6f6"></div>
                             <div class="palete-block" style="background-color: #f4f4f4"></div>
