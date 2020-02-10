@@ -18,6 +18,7 @@ public class Post {
     private String title;
     private String postDate;
     private String location;
+
     private List<Pleasant> likeList = new ArrayList<>();
     private List<Comment> commentList = new ArrayList<>();
     private List<Tag> tagList = new ArrayList<>();
@@ -26,9 +27,9 @@ public class Post {
     private Mapper<Comment> commentListMapper = new Mapper<>(Comment.class);
     private Mapper<Tag> tagListMapper = new Mapper<>(Tag.class);
 
-
     public Post(){
     }
+
     public void addLike(Pleasant like) {
         likeList.add(like);
     }

@@ -100,10 +100,9 @@ public class Mapper<T> {
                 field.getType().getName().equals("dao.Mapper"));
     }
 
-    public List<T> getBy(String fieldName, String fieldValue) {
+    private List<T> getField(String fieldName, String fieldValue, String sqlQuery ) {
         List<T> entityList = new ArrayList<T>();
 
-        String sqlQuery = queryProducer.getSqlSelectQuery(fieldName, fieldValue);
 
         if (fieldName == null || fieldValue == null) {
             throw new IllegalArgumentException();
@@ -138,6 +137,18 @@ public class Mapper<T> {
             log.fatal("SQL error", e);
         }
         return entityList;
+    }
+
+    public List<T> getBy(String fieldName, String fieldValue){
+
+        String sqlQuery = queryProducer.getSqlSelectQuery(fieldName, fieldValue);
+        return getField(fieldName, fieldValue, sqlQuery);
+    }
+
+    public List<T> getLike(String fieldName, String fieldValue){
+
+        String sqlQuery = queryProducer.getSqlSelectLikeQuery(fieldName, fieldValue);
+        return getField(fieldName, fieldValue, sqlQuery);
     }
 
     private void recursiveMapTheList(Field field, T entityObject) throws IllegalAccessException {

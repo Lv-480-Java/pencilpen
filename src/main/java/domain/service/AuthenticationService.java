@@ -2,6 +2,7 @@ package domain.service;
 
 import dao.Mapper;
 import domain.entity.User;
+import domain.entity.UserRegistered;
 import domain.exception.registration.AlreadyExistsException;
 import domain.exception.registration.PasswordException;
 
@@ -17,38 +18,46 @@ public class AuthenticationService {
         String email = userToRegister.getEmail();
         Mapper<User> mapper = new Mapper<>(User.class);
 
-        if (!(mapper.getBy("email", email).size() == 0 ||
-                mapper.getBy("nickname", username).size() == 0)) {
-            throw new AlreadyExistsException("not good");
+        if (username.length() < 3 || username.length() > 50) {
+            mapper.addField(new User(email, username, password));
+            throw new IllegalArgumentException("Username is too short or too long");
+        }
+
+        if (email.length() > 50 || email.length() < 10) {
+            mapper.addField(new User(email, username, password));
+            throw new IllegalArgumentException("Email or user is too short or too long");
+        }
+
+        if ((mapper.getBy("email", email).size() != 0 ||
+                mapper.getBy("nickname", username).size() != 0)) {
+            throw new AlreadyExistsException("Email or username allready exists");
         }
 
         if (!(password.equals(passwordRepeat)) ||
                 password.length() < 7 ||
                 password.length() > 50) {
-            throw new PasswordException("not good");
+            throw new PasswordException("Error! password is too weak");
         }
-
-        if (email.length() > 50 ||
-                username.length() < 3 ||
-                username.length() > 50) {
-            mapper.addField(new User(email, username, password));
-            throw new IllegalArgumentException("not good");
-        }
+        mapper.addField(userToRegister);
         return true;
     }
 
-    public static boolean validate(String nickname, String pass) {
-        if (nickname == null || pass == null) {
+    public static boolean validate(UserRegistered user) {
+
+        if (user == null || user.getUsername() == null || user.getPassword() == null) {
             return false;
         }
+
         Mapper<User> userMapper = new Mapper<>(User.class);
-        List<User> userList = userMapper.getBy("nickname", nickname);
+        List<User> userList = userMapper.getBy("nickname", user.getUsername());
+
         if (userList.size() > 0) {
-            if (userList.get(0).getPass().equals(pass)) {
+            if (userList.get(0).getPass().equals(user.getPassword())) {
                 System.out.println("ITS OKAY");
                 return true;
             }
         }
+
         return false;
     }
 }

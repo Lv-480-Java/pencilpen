@@ -14,6 +14,8 @@ public class QueryProducer<T> {
     private Field[] allFields;
 
     private final String sqlSelectQuery = "SELECT %s FROM %s WHERE %s = \"%s\"";
+    private final String sqlSelectLikeQuery = "SELECT %s FROM %s WHERE %s LIKE \"%s\"";
+
     private final String sqlSelectAllQuery = "SELECT %s FROM %s";
 
     private final String SqlInsertQuery = "INSERT INTO %s (%s) values (%s)";
@@ -30,6 +32,16 @@ public class QueryProducer<T> {
 
         String fields = getAllFields();
         String sqlQuery = String.format(sqlSelectQuery, fields, tableName, fieldName, fieldValue);
+
+        System.out.println(sqlQuery);
+        return sqlQuery;
+    }
+
+    String getSqlSelectLikeQuery(String fieldName, String fieldValue) {
+        StringBuilder fieldsString = new StringBuilder("");
+
+        String fields = getAllFields();
+        String sqlQuery = String.format(sqlSelectLikeQuery, fields, tableName, fieldName, "%"+fieldValue+"%");
 
         System.out.println(sqlQuery);
         return sqlQuery;

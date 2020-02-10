@@ -1,6 +1,8 @@
 package servlet;
 
 
+import domain.entity.User;
+import domain.entity.UserRegistered;
 import domain.service.AuthenticationService;
 
 import javax.servlet.RequestDispatcher;
@@ -18,9 +20,9 @@ import static domain.service.AuthenticationService.validate;
 public class LoginServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        String passwordAttribute = (String) session.getAttribute("password");
+        UserRegistered user = (UserRegistered)session.getAttribute("user");
 
-        if (passwordAttribute == null) {
+        if (!validate(user)) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/login.jsp");
             dispatcher.forward(request, response);
         } else {
@@ -31,25 +33,21 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
+
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        String passwordAtribute = (String) session.getAttribute("password");
+        HttpSession session = request.getSession();
+        if (!validate((UserRegistered) session.getAttribute("user"))) {
+            UserRegistered user = new UserRegistered(username, password);
 
-        if (passwordAtribute == null) {
-            session = request.getSession(true);
-            if (validate(username, password)) {
-
-                session.setAttribute("password", password);
-                session.setAttribute("username", username);
-
+            if (validate(user)) {
+                session.setAttribute("user", user);
                 response.sendRedirect("/profile?username=" + username);
                 System.out.println(" ITS OKAY");
 
             } else {
                 request.setAttribute("text-result", "Error! Login or password is not right");
-
                 RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/login.jsp");
                 dispatcher.forward(request, response);
             }

@@ -1,12 +1,14 @@
+<%@ page import="domain.entity.UserRegistered" %>
 
+<%
 
-    <%
-
-        String name=(String)session.getAttribute("username");
+        UserRegistered user =(UserRegistered) session.getAttribute("user");
         String auth;
-        if(name == null){
+        String name=null;
+        if(user == null){
          auth = "penpencil/ui/picture/menu/login1.png";
         }else{
+             name = user.getUsername();
          auth = "penpencil/ui/picture/menu/login.png";
         }
 

@@ -1,10 +1,8 @@
 package domain.service;
 
 import dao.Mapper;
-import domain.entity.Comment;
-import domain.entity.Pleasant;
-import domain.entity.Post;
-import domain.entity.User;
+import dao.implementations.CommentDao;
+import domain.entity.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,26 +24,9 @@ public class PostService {
         return (Post) postMapper.getBy("id", id).get(0);
     }
 
-    public void addComment(HttpServletRequest request, HttpSession session) {
-
-        String passwordAtribute = (String) session.getAttribute("password");
-        String usernameAtribute = (String) session.getAttribute("username");
-
-        String commentAtr = (String) request.getParameter("comment-add");
-        String postIdAtr = (String) request.getParameter("post-id");
-
-        Mapper<User> userMapper = new Mapper<>(User.class);
-        Mapper<Comment> postMapper = new Mapper<>(Comment.class);
-
-        int userId = userMapper.getBy("nickname", (String) session.getAttribute("username")).get(0).getId();
-
-        Comment comment = new Comment();
-        comment.setCommentText(commentAtr);
-        comment.setPostId(postIdAtr);
-        comment.setNickname(usernameAtribute);
-        comment.setUserId(userId);
-
-        postMapper.addField(comment);
+    public void addComment(Comment comment) {
+        CommentDao commentMapper = new CommentDao();
+        commentMapper.addComment(comment);
     }
 
     public List<Post> getAllPosts() {
@@ -67,6 +48,7 @@ public class PostService {
         List<Pleasant> likeList = postList.get(0).getLikeList();
 
         boolean isLikedByUser = false;
+
         for (Pleasant like : likeList) {
             if (like.getUserId() == userId) {
                 isLikedByUser = true;
@@ -74,6 +56,7 @@ public class PostService {
                 break;
             }
         }
+
         if (!isLikedByUser) {
             Pleasant like = new Pleasant();
             like.setPostId(Integer.parseInt(postId));

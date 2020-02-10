@@ -32,16 +32,18 @@ public class RegisterServlet extends HttpServlet {
 
         User userToRegister = new User(email,username,password);
         boolean isSuccessRegistered=false;
+
+        String result = "Success! Now you can login with your data";
+
         try {
             isSuccessRegistered = authenticationServiceController.register(userToRegister, repeatedPassword);
-        }catch (IllegalArgumentException | PasswordException e){
-            request.setAttribute("text-result", "Error! password is too weak");
-        }catch (AlreadyExistsException e){
-            request.setAttribute("text-result", "email or username allready exists");
+        }catch (Exception e){
+            result = e.getMessage();
         }
+
+        request.setAttribute("text-result", result );
         if(isSuccessRegistered){
             RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/login.jsp");
-            request.setAttribute("text-result", "Success! Now you can login with your data");
             dispatcher.forward(request, response);
         }else {
             RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/register.jsp");

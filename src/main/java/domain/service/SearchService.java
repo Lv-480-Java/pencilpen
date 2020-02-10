@@ -1,7 +1,9 @@
 package domain.service;
 
 import dao.Mapper;
+import dao.implementations.PostDao;
 import domain.entity.Post;
+import domain.entity.Tag;
 import javafx.geometry.Pos;
 
 import java.util.ArrayList;
@@ -10,19 +12,16 @@ import java.util.List;
 
 public class SearchService {
 
-    public List<Post> findByTag(String tag){
+    public List<Post> findByTag(String tagText){
 
-        Mapper<Post> mapper = new Mapper<>(Post.class);
-        List<Post> postList = mapper.getAll();
+        PostDao postMapper = new PostDao();
 
-        List<Post> postListAccept = new ArrayList<>();
+        Tag tag = new Tag();
+        tag.setTagName(tagText);
 
-        for(Post post: postList){
-            if(post.getTitle().toLowerCase().contains(tag.toLowerCase())){
-                postListAccept.add(post);
-            }
-        }
-        Collections.reverse(postListAccept);
-        return postListAccept;
+        List<Post> postList = postMapper.getByTag(tag);
+        Collections.reverse(postList);
+
+        return postList;
     }
 }

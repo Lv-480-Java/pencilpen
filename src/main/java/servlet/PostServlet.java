@@ -2,6 +2,7 @@ package servlet;
 
 import dao.Mapper;
 import domain.entity.Comment;
+import domain.entity.UserRegistered;
 import domain.service.AuthenticationService;
 import domain.service.PostService;
 
@@ -25,16 +26,15 @@ public class PostServlet extends HttpServlet {
 
 
         HttpSession session = request.getSession();
-        String password = (String) session.getAttribute("password");
-        String username = (String) session.getAttribute("username");
+        UserRegistered userRegistered = (UserRegistered) session.getAttribute("user");
 
         if (postId != null) {
             PostService controller = new PostService();
             request.setAttribute("post", controller.getPost(postId));
 
             String like = (String) request.getParameter("like");
-            if (like != null && validate(username, password)) {
-                controller.addLike(postId, username);
+            if (like != null && validate(userRegistered)) {
+                controller.addLike(postId, userRegistered.getUsername());
             }
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/post.jsp");
@@ -46,16 +46,5 @@ public class PostServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        String passwordAtribute = (String) session.getAttribute("password");
-        String usernameAtribute = (String) session.getAttribute("username");
-
-        String commentAtr = (String) request.getAttribute("comment-add");
-        if (passwordAtribute != null &&
-                usernameAtribute != null &&
-                commentAtr != null) {
-            PostService controller = new PostService();
-            controller.addComment(request, session);
-        }
     }
 }

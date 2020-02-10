@@ -1,5 +1,7 @@
 package servlet;
 
+import domain.entity.Comment;
+import domain.entity.UserRegistered;
 import domain.service.PostService;
 
 import javax.servlet.ServletException;
@@ -10,25 +12,30 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import static domain.service.AuthenticationService.validate;
+
 @WebServlet("/comment")
 public class CommentServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        HttpSession session = request.getSession();
 
-        String passwordAtribute = (String) session.getAttribute("password");
-        String usernameAtribute = (String) session.getAttribute("username");
+        HttpSession session = request.getSession();
+        UserRegistered user = (UserRegistered)session.getAttribute("user");
 
         String commentAtr = (String) request.getParameter("comment-add");
         String postAtr = (String) request.getParameter("post-id");
 
+        Comment comment = new Comment();
+        comment.setCommentText(commentAtr);
+        comment.setPostId(postAtr);
+        comment.setNickname(user.getUsername());
+
         System.out.println(commentAtr);
         System.out.println(postAtr);
 
-        if (passwordAtribute != null &&
-                usernameAtribute != null &&
+        if (validate(user) &&
                 commentAtr != null) {
             PostService controller = new PostService();
-            controller.addComment(request, session);
+            controller.addComment(comment);
         } else {
             System.out.println("WRONG");
         }

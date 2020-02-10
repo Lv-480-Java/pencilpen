@@ -1,67 +1,38 @@
 package domain.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+public class UserRegistered {
 
-public class UserRegistered extends User {
+    private String username;
+    private String password;
+    private int id;
 
-    private int level;
-    private List<Post> postList = new ArrayList<>();
 
-    public UserRegistered(String nickname, String pass, String email) {
-        super(nickname, pass, email);
-    }
-
-    public UserRegistered(int id, String nickname, String pass, String email, int level) {
-        super(email,nickname,pass);
-        this.level = level;
-        setId(id);
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
+    public UserRegistered(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     public int getId() {
-        return this.getId();
+        return id;
     }
 
-    @Override
-    public String getNickname() {
-        return super.getNickname();
+    public void setId(int id) {
+        this.id = id;
     }
 
-    @Override
-    public String getPass() {
-        return super.getPass();
+    public String getUsername() {
+        return username;
     }
 
-    @Override
-    public String getEmail() {
-        return super.getEmail();
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public int getLevel() {
-        return this.getLevel();
+    public String getPassword() {
+        return password;
     }
 
-    public List<Post> getPostList() {
-        return this.getPostList();
-    }
-
-    @Override
-    public void setEmail(String email) {
-        super.setEmail(email);
-    }
-
-    @Override
-    public void setNickname(String nickname) {
-        super.setNickname(nickname);
-    }
-
-    @Override
-    public void setPass(String pass) {
-        super.setPass(pass);
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
