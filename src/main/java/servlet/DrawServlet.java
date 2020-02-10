@@ -16,6 +16,7 @@ public class DrawServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/draw.jsp");
         dispatcher.forward(request, response);
     }
+
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }

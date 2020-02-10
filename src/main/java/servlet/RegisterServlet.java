@@ -1,6 +1,8 @@
 package servlet;
 
 import domain.entity.User;
+import domain.exception.registration.AlreadyExistsException;
+import domain.exception.registration.PasswordException;
 import domain.service.AuthenticationService;
 
 import javax.servlet.RequestDispatcher;
@@ -29,10 +31,21 @@ public class RegisterServlet extends HttpServlet {
         String repeatedPassword = request.getParameter("password-repeat");
 
         User userToRegister = new User(email,username,password);
-        authenticationServiceController.register(userToRegister,repeatedPassword);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/login.jsp");
-        request.setAttribute("text-result", "Success! Now you can login with your data");
-        dispatcher.forward(request, response);
+        boolean isSuccessRegistered=false;
+        try {
+            isSuccessRegistered = authenticationServiceController.register(userToRegister, repeatedPassword);
+        }catch (IllegalArgumentException | PasswordException e){
+            request.setAttribute("text-result", "Error! password is too weak");
+        }catch (AlreadyExistsException e){
+            request.setAttribute("text-result", "email or username allready exists");
+        }
+        if(isSuccessRegistered){
+            RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/login.jsp");
+            request.setAttribute("text-result", "Success! Now you can login with your data");
+            dispatcher.forward(request, response);
+        }else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/register.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 }

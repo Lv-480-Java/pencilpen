@@ -19,7 +19,7 @@ public class Mapper<T> {
     private Field idField;
     private String tableName = null;
 
-    private QueryProducer<T> queryProducer ;
+    private QueryProducer<T> queryProducer;
 
     public Mapper(Class<T> typeParameterClass) {
         this.typeParameterClass = typeParameterClass;
@@ -53,7 +53,7 @@ public class Mapper<T> {
         }
     }
 
-    private boolean checkFieldExist(String fieldName){
+    private boolean checkFieldExist(String fieldName) {
         boolean hasFieldName = false;
         for (Field field : allFields) {
             if (field.getName().equals(fieldName)) {
@@ -64,7 +64,7 @@ public class Mapper<T> {
         return hasFieldName;
     }
 
-    private T getInstance(){
+    private T getInstance() {
         try {
             return typeParameterClass.getDeclaredConstructor().newInstance();
         } catch (InstantiationException e) {
@@ -95,7 +95,7 @@ public class Mapper<T> {
         }
     }
 
-    private boolean fieldIsList(Field field){
+    private boolean fieldIsList(Field field) {
         return (field.getType().getName().equals("java.util.List") ||
                 field.getType().getName().equals("dao.Mapper"));
     }
@@ -105,34 +105,38 @@ public class Mapper<T> {
 
         String sqlQuery = queryProducer.getSqlSelectQuery(fieldName, fieldValue);
 
-        if(fieldName==null || fieldValue==null){throw new IllegalArgumentException();}
+        if (fieldName == null || fieldValue == null) {
+            throw new IllegalArgumentException();
+        }
         if (!checkFieldExist(fieldName)) {
             throw new NoSuchFieldException("Field \'" + fieldName + "\' not found in the class : \"" + typeParameterClass + "\"");
         }
 
         try (Connection connection = (new ConnectionController()).getConnection();
-                 PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
-                ResultSet resultSet = preparedStatement.executeQuery();
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-                while (resultSet.next()) {
-                    T entityObject = getInstance();
-                    if(entityObject==null){throw new IllegalArgumentException();}
-
-                    for (Field field : allFields) {
-                        field.setAccessible(true);
-                        String fieldResultSet = "";
-
-                        if (!fieldIsList(field)) {
-                            fieldResultSet = resultSet.getString(field.getName());
-                        }
-
-                        setFieldValues(fieldResultSet, field, entityObject);
-                    }
-                    entityList.add(entityObject);
+            while (resultSet.next()) {
+                T entityObject = getInstance();
+                if (entityObject == null) {
+                    throw new IllegalArgumentException();
                 }
-            } catch (SQLException e) {
-            log.fatal("SQL error", e);
+
+                for (Field field : allFields) {
+                    field.setAccessible(true);
+                    String fieldResultSet = "";
+
+                    if (!fieldIsList(field)) {
+                        fieldResultSet = resultSet.getString(field.getName());
+                    }
+
+                    setFieldValues(fieldResultSet, field, entityObject);
+                }
+                entityList.add(entityObject);
             }
+        } catch (SQLException e) {
+            log.fatal("SQL error", e);
+        }
         return entityList;
     }
 
@@ -154,7 +158,7 @@ public class Mapper<T> {
                 String sql = queryProducer.getSqlInsertQuery(objectToAdd);
                 try (Connection connection = new ConnectionController().getConnection();
                      PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                     statement.execute();
+                    statement.execute();
                 }
             } catch (SQLException e) {
                 log.fatal("SQL server error, Cannot create user", e);
@@ -234,7 +238,9 @@ public class Mapper<T> {
 
             while (resultSet.next()) {
                 T entityObject = getInstance();
-                if(entityObject==null){throw new IllegalArgumentException();}
+                if (entityObject == null) {
+                    throw new IllegalArgumentException();
+                }
 
                 for (Field field : allFields) {
                     field.setAccessible(true);

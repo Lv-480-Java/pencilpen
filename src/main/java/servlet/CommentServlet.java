@@ -25,14 +25,14 @@ public class CommentServlet extends HttpServlet {
         System.out.println(postAtr);
 
         if (passwordAtribute != null &&
-            usernameAtribute != null &&
-            commentAtr != null) {
-                PostService controller = new PostService();
-                controller.addComment(request, session);
-        }else {
+                usernameAtribute != null &&
+                commentAtr != null) {
+            PostService controller = new PostService();
+            controller.addComment(request, session);
+        } else {
             System.out.println("WRONG");
         }
-        response.sendRedirect("/post?post-id= "+(String) request.getParameter("post-id"));
+        response.sendRedirect("/post?post-id= " + (String) request.getParameter("post-id"));
     }
 
     @Override

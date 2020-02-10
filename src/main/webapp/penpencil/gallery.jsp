@@ -17,7 +17,7 @@
 <%@ page import="domain.entity.*" %>
 
 <div id="find-wrapper">
-    <form action="action_page.php" method="post">
+    <form action="/gallery" method="get">
         <div id="find-container">
             <input id="find-by-tag" class="input-field" type="text" placeholder="find by tag" name="tag" required>
             <button id="find-button" type="submit">F</button>

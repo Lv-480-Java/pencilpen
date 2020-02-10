@@ -7,11 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
+import java.net.http.HttpRequest;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import domain.entity.Post;
 import domain.service.PostService;
+
+import static domain.service.AuthenticationService.validate;
 
 
 @WebServlet("/add")
@@ -40,8 +43,7 @@ public class NewPostServlet extends HttpServlet {
         String tag = jsonObject.get("tag").getAsString();
         String imageData = jsonObject.get("imageData").getAsString();
 
-        if(passwordAtribute!=null &&
-           usernameAtribute!=null &&
+        if(validate(usernameAtribute, passwordAtribute) &&
            description!=null){
 
                 Post post = new Post();

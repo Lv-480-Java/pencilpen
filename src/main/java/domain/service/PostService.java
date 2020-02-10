@@ -63,7 +63,6 @@ public class PostService {
         Mapper<User> userList = new Mapper<>(User.class);
         int userId = userList.getBy("nickname", username).get(0).getId();
 
-
         Mapper<Pleasant> pleasantMapper = new Mapper<>(Pleasant.class);
         List<Pleasant> likeList = postList.get(0).getLikeList();
 

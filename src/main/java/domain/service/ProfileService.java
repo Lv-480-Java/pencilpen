@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ProfileService {
 
-    public List<Post> getUsersPosts(String username){
+    public List<Post> getUsersPosts(String username) {
         Mapper<Post> postMapper = new Mapper<>(Post.class);
         List<Post> posts = postMapper.getBy("nickname", username);
         return posts;

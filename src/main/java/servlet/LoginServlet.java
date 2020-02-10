@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import static domain.service.AuthenticationService.validate;
+
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -34,16 +36,15 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         String passwordAtribute = (String) session.getAttribute("password");
-        AuthenticationService authenticationService = new AuthenticationService();
 
         if (passwordAtribute == null) {
             session = request.getSession(true);
-            if (authenticationService.validate(username, password)) {
+            if (validate(username, password)) {
 
                 session.setAttribute("password", password);
                 session.setAttribute("username", username);
 
-                response.sendRedirect("/profile?username="+username);
+                response.sendRedirect("/profile?username=" + username);
                 System.out.println(" ITS OKAY");
 
             } else {

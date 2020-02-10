@@ -4,6 +4,7 @@ package servlet;
 import dao.Mapper;
 import domain.entity.Post;
 import domain.service.PostService;
+import domain.service.SearchService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,9 +20,16 @@ import java.util.List;
 public class GalleryServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        PostService postService = new PostService();
-        List<Post> posts = postService.getAllPosts();
+        String tag = request.getParameter("tag");
+        List<Post> posts;
 
+        if (tag != null) {
+            SearchService searchService = new SearchService();
+            posts = searchService.findByTag(tag);
+        } else {
+            PostService postService = new PostService();
+            posts = postService.getAllPosts();
+        }
         request.setAttribute("postList", posts);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/gallery.jsp");
