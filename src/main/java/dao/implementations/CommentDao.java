@@ -21,8 +21,6 @@ public class CommentDao {
 
     public void addComment(Comment comment){
         UserDao userMapper = new UserDao();
-        int userId = userMapper.getByUsername(comment.getNickname()).get(0).getId();
-        comment.setUserId(userId);
         mapper.addField(comment);
     }
 

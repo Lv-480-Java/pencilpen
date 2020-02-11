@@ -18,24 +18,19 @@ public class Post {
     private String postDate;
     private String location;
 
-    private List<Pleasant> likeList = new ArrayList<>();
-    private List<Comment> commentList = new ArrayList<>();
+    private List<Pleasant> likeList ;
+    private List<Comment> commentList ;
+
     private List<Tag> tagList = new ArrayList<>();
 
-    private Mapper<Pleasant> likeListMapper = new Mapper<>(Pleasant.class);
-    private Mapper<Comment> commentListMapper = new Mapper<>(Comment.class);
-    private Mapper<Tag> tagListMapper = new Mapper<>(Tag.class);
+    private static Mapper<Pleasant> likeListMapper = new Mapper<>(Pleasant.class);
+    private static Mapper<Comment> commentListMapper = new Mapper<>(Comment.class);
+    private static Mapper<Tag> tagListMapper = new Mapper<>(Tag.class);
 
     public Post(){
     }
 
-    public void addLike(Pleasant like) {
-        likeList.add(like);
-    }
 
-    public void addComment(Comment comment) {
-        commentList.add(comment);
-    }
 
     @Override
     public String toString() {

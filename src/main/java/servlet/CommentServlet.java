@@ -1,6 +1,5 @@
 package servlet;
 
-import domain.entity.Comment;
 import servlet.entity.CommentView;
 import servlet.entity.UserView;
 import domain.service.PostService;
@@ -13,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import static domain.EntityMapper.viewToComment;
 import static domain.service.AuthenticationService.validateUser;
 
 @WebServlet("/comment")
@@ -38,7 +38,7 @@ public class CommentServlet extends HttpServlet {
             comment.setNickname(user.getUsername());
 
             PostService controller = new PostService();
-            controller.addComment(comment);
+            controller.addComment(viewToComment(comment));
 
         } else {
             System.out.println("WRONG");

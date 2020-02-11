@@ -11,7 +11,11 @@ import servlet.entity.PleasantView;
 import servlet.entity.PostView;
 import servlet.entity.UserView;
 
+import java.util.stream.Collectors;
+
 public class EntityMapper {
+
+   private static UserDao userDao = new UserDao();
 
     public static Post viewToPost(PostView postView) {
         Post post = new Post();
@@ -19,8 +23,8 @@ public class EntityMapper {
         post.setPostText(postView.getPostText());
         post.setTitle(postView.getTag());
         post.setUsername(postView.getUsername());
-        post.setLikeList(postView.getLikeList());
-        post.setCommentList(postView.getCommentList());
+        post.setLikeList(postView.getLikeList().stream().map(EntityMapper::viewToPleasant).collect(Collectors.toList()));
+        post.setCommentList(postView.getCommentList().stream().map(EntityMapper::viewToComment).collect(Collectors.toList()));
         post.setId(postView.getId());
         return post;
     }
@@ -31,8 +35,8 @@ public class EntityMapper {
         postView.setPostText(post.getPostText());
         postView.setTag(post.getTitle());
         postView.setUsername(post.getUsername());
-        postView.setLikeList(post.getLikeList());
-        postView.setCommentList(post.getCommentList());
+        postView.setLikeList(post.getLikeList().stream().map(EntityMapper::pleasantToView).collect(Collectors.toList()));
+        postView.setCommentList(post.getCommentList().stream().map(EntityMapper::commentToView).collect(Collectors.toList()));
         postView.setId(post.getId());
         return postView;
     }
@@ -67,7 +71,6 @@ public class EntityMapper {
         Pleasant pleasant = new Pleasant();
         pleasant.setPostId(Integer.parseInt(pleasantView.getPostId()));
 
-        UserDao userDao = new UserDao();
         int userId = userDao.getByUsername(pleasantView.getUsername()).get(0).getId();
 
         pleasant.setUserId(userId);
@@ -76,7 +79,21 @@ public class EntityMapper {
 
     public static Comment viewToComment(CommentView commentView){
         Comment comment = new Comment();
-        
+        int userId = userDao.getByUsername(commentView.getNickname()).get(0).getId();
+        comment.setUserId(userId);
+        comment.setPostId(commentView.getPostId());
+        comment.setCommentText(commentView.getCommentText());
+        return comment;
+    }
+
+    public static CommentView commentToView(Comment comment){
+        CommentView commentView = new CommentView();
+        System.out.println(String.valueOf(comment.getUserId()));
+        String nickname = userDao.getById(String.valueOf(comment.getUserId())).get(0).getNickname();
+        commentView.setNickname(nickname);
+        commentView.setPostId(comment.getPostId());
+        commentView.setCommentText(comment.getCommentText());
+        return commentView;
     }
 
 

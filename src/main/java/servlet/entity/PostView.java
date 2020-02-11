@@ -15,22 +15,22 @@ public class PostView {
     private String username;
     private String tag;
 
-    private List<Pleasant> likeList = new ArrayList<>();
-    private List<Comment> commentList = new ArrayList<>();
+    private List<PleasantView> likeList = new ArrayList<>();
+    private List<CommentView> commentList = new ArrayList<>();
 
-    public List<Pleasant> getLikeList() {
+    public List<PleasantView> getLikeList() {
         return likeList;
     }
 
-    public void setLikeList(List<Pleasant> likeList) {
+    public void setLikeList(List<PleasantView> likeList) {
         this.likeList = likeList;
     }
 
-    public List<Comment> getCommentList() {
+    public List<CommentView> getCommentList() {
         return commentList;
     }
 
-    public void setCommentList(List<Comment> commentList) {
+    public void setCommentList(List<CommentView> commentList) {
         this.commentList = commentList;
     }
 

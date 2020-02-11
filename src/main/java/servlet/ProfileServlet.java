@@ -37,9 +37,11 @@ public class ProfileServlet extends HttpServlet {
                             .stream()
                             .map(EntityMapper::postToView)
                             .collect(Collectors.toList());
+
             for (PostView post: postList){
                 System.out.println(post.toString());
             }
+            
             Collections.reverse(postList);
 
             request.setAttribute("postList", postList);

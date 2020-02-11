@@ -74,8 +74,7 @@
                                 </div>
                             </a>
 
-                            <% }
-    %>
+                            <% } %>
             <script type="text/javascript" src="penpencil/scripts/crop.js"></script>
         </body>
 

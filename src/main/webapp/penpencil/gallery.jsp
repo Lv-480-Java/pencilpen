@@ -59,7 +59,7 @@
             <div class="tag-container">
                 <div class="tag1">
                     <p>
-                            ${post.getTitle()}
+                            ${post.getTag()}
                     </p>
                 </div>
             </div>

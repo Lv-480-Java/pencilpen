@@ -19,7 +19,7 @@ public class UserDao {
     }
 
     public List<User> getById(String id){
-        List<User> UserList = mapper.getBy("email", id);
+        List<User> UserList = mapper.getBy("id", id);
         return UserList;
     }
 
