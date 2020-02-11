@@ -1,13 +1,9 @@
 package servlet.entity;
 
-import domain.entity.Comment;
-import domain.entity.Pleasant;
-import domain.entity.Tag;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostView {
+public class PostDto {
 
     private int id;
     private String postText;
@@ -15,22 +11,22 @@ public class PostView {
     private String username;
     private String tag;
 
-    private List<PleasantView> likeList = new ArrayList<>();
-    private List<CommentView> commentList = new ArrayList<>();
+    private List<PleasantDto> likeList = new ArrayList<>();
+    private List<CommentDto> commentList = new ArrayList<>();
 
-    public List<PleasantView> getLikeList() {
+    public List<PleasantDto> getLikeList() {
         return likeList;
     }
 
-    public void setLikeList(List<PleasantView> likeList) {
+    public void setLikeList(List<PleasantDto> likeList) {
         this.likeList = likeList;
     }
 
-    public List<CommentView> getCommentList() {
+    public List<CommentDto> getCommentList() {
         return commentList;
     }
 
-    public void setCommentList(List<CommentView> commentList) {
+    public void setCommentList(List<CommentDto> commentList) {
         this.commentList = commentList;
     }
 

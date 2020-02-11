@@ -1,7 +1,7 @@
 package servlet;
 
 import domain.service.AuthenticationService;
-import servlet.entity.UserView;
+import servlet.entity.UserDto;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,7 +28,7 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String repeatedPassword = request.getParameter("password-repeat");
 
-        UserView userToRegister = new UserView(email,username,password);
+        UserDto userToRegister = new UserDto(email,username,password);
         boolean isSuccessRegistered=false;
 
         String result = null;

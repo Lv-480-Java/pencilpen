@@ -1,7 +1,7 @@
 package servlet;
 
 
-import servlet.entity.UserView;
+import servlet.entity.UserDto;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,7 +18,7 @@ import static domain.service.AuthenticationService.validateUser;
 public class LoginServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        UserView user = (UserView)session.getAttribute("user");
+        UserDto user = (UserDto)session.getAttribute("user");
 
         if (!validateUser(user)) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/login.jsp");
@@ -36,8 +36,8 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         HttpSession session = request.getSession();
-        if (!validateUser((UserView) session.getAttribute("user"))) {
-            UserView user = new UserView(username, password);
+        if (!validateUser((UserDto) session.getAttribute("user"))) {
+            UserDto user = new UserDto(username, password);
 
             if (validateUser(user)) {
                 session.setAttribute("user", user);

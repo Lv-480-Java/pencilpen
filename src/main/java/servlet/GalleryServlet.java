@@ -4,7 +4,7 @@ package servlet;
 import domain.EntityMapper;
 import domain.service.PostService;
 import domain.service.SearchService;
-import servlet.entity.PostView;
+import servlet.entity.PostDto;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,14 +16,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static domain.EntityMapper.postToView;
-
 @WebServlet("/gallery")
 public class GalleryServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         String tag = request.getParameter("tag");
-        List<PostView> posts;
+        List<PostDto> posts;
 
         if (tag != null) {
             SearchService searchService = new SearchService();
@@ -40,6 +38,7 @@ public class GalleryServlet extends HttpServlet {
                     .map(EntityMapper::postToView)
                     .collect(Collectors.toList());
         }
+
         request.setAttribute("postList", posts);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/gallery.jsp");

@@ -1,6 +1,6 @@
 package servlet.entity;
 
-public class PleasantView {
+public class PleasantDto {
     private String username;
     private String postId;
 

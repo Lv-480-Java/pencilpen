@@ -1,7 +1,7 @@
 package servlet;
 
-import servlet.entity.CommentView;
-import servlet.entity.UserView;
+import servlet.entity.CommentDto;
+import servlet.entity.UserDto;
 import domain.service.PostService;
 
 import javax.servlet.ServletException;
@@ -20,7 +20,7 @@ public class CommentServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         HttpSession session = request.getSession();
-        UserView user = (UserView)session.getAttribute("user");
+        UserDto user = (UserDto)session.getAttribute("user");
 
         String commentAtr = (String) request.getParameter("comment-add");
         String postAtr = (String) request.getParameter("post-id");
@@ -32,7 +32,7 @@ public class CommentServlet extends HttpServlet {
         if (validateUser(user) &&
                 commentAtr != null) {
 
-            CommentView comment = new CommentView();
+            CommentDto comment = new CommentDto();
             comment.setCommentText(commentAtr);
             comment.setPostId(postAtr);
             comment.setNickname(user.getUsername());

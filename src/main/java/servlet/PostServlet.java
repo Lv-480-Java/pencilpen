@@ -1,7 +1,7 @@
 package servlet;
 
-import servlet.entity.PleasantView;
-import servlet.entity.UserView;
+import servlet.entity.PleasantDto;
+import servlet.entity.UserDto;
 import domain.service.PostService;
 
 import javax.servlet.RequestDispatcher;
@@ -22,16 +22,16 @@ public class PostServlet extends HttpServlet {
         String postId = (String) request.getParameter("post-id");
 
         HttpSession session = request.getSession();
-        UserView userView = (UserView) session.getAttribute("user");
+        UserDto userDto = (UserDto) session.getAttribute("user");
 
         if (postId != null) {
             PostService postService = new PostService();
             request.setAttribute("post", postToView(postService.getPost(postId)));
 
-            if (request.getParameter("like") != null && validateUser(userView)) {
+            if (request.getParameter("like") != null && validateUser(userDto)) {
 
-                PleasantView pleasant = new PleasantView();
-                pleasant.setUsername(userView.getUsername());
+                PleasantDto pleasant = new PleasantDto();
+                pleasant.setUsername(userDto.getUsername());
                 pleasant.setPostId(postId);
 
                 postService.addLike(pleasant);

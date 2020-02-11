@@ -24,7 +24,7 @@
 
 
                     <%
-    List<PostView> postList = (ArrayList<PostView>) request.getAttribute("postList");
+    List<PostDto> postList = (ArrayList<PostDto>) request.getAttribute("postList");
     %>
 
 
@@ -38,7 +38,7 @@
 
 
 
-                        <% for(PostView post: postList){ %>
+                        <% for(PostDto post: postList){ %>
 
                             <a href="/post?post-id=<%= post.getId()%>">
                                 <div class="content-block">

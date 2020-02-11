@@ -2,7 +2,7 @@ package domain.service;
 
 import dao.implementations.UserDao;
 import domain.entity.User;
-import servlet.entity.UserView;
+import servlet.entity.UserDto;
 import domain.exception.registration.AlreadyExistsException;
 import domain.exception.registration.PasswordException;
 
@@ -13,7 +13,7 @@ public class AuthenticationService {
 
     private static UserDao userMapper = new UserDao();
 
-    public boolean register(UserView userToRegister, String passwordRepeat) {
+    public boolean register(UserDto userToRegister, String passwordRepeat) {
 
         String username = userToRegister.getUsername();
         String password = userToRegister.getPassword();
@@ -41,7 +41,7 @@ public class AuthenticationService {
         return true;
     }
 
-    public static boolean validateUser(UserView user) {
+    public static boolean validateUser(UserDto user) {
 
         if (user == null || user.getUsername() == null || user.getPassword() == null) {
             return false;

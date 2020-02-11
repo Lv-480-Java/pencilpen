@@ -1,8 +1,8 @@
 package servlet;
 
 import domain.EntityMapper;
-import servlet.entity.PostView;
-import servlet.entity.UserView;
+import servlet.entity.PostDto;
+import servlet.entity.UserDto;
 import domain.service.ProfileService;
 
 import javax.servlet.RequestDispatcher;
@@ -25,12 +25,12 @@ public class ProfileServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
 
-        if (validateUser((UserView) session.getAttribute("user"))) {
+        if (validateUser((UserDto) session.getAttribute("user"))) {
 
             String postUsername = (String) request.getParameter("username");
 
             ProfileService profileService = new ProfileService();
-            List<PostView> postList;
+            List<PostDto> postList;
 
             postList = profileService
                             .getUsersPosts(postUsername)
@@ -38,7 +38,7 @@ public class ProfileServlet extends HttpServlet {
                             .map(EntityMapper::postToView)
                             .collect(Collectors.toList());
 
-            for (PostView post: postList){
+            for (PostDto post: postList){
                 System.out.println(post.toString());
             }
             

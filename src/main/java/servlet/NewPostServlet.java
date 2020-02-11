@@ -10,8 +10,8 @@ import java.io.*;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import servlet.entity.PostView;
-import servlet.entity.UserView;
+import servlet.entity.PostDto;
+import servlet.entity.UserDto;
 import domain.service.PostService;
 
 import static domain.EntityMapper.*;
@@ -29,7 +29,7 @@ public class NewPostServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        UserView user = (UserView) session.getAttribute("user");
+        UserDto user = (UserDto) session.getAttribute("user");
 
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
 
@@ -45,7 +45,7 @@ public class NewPostServlet extends HttpServlet {
         if (validateUser(user) &&
                 description != null) {
 
-            PostView post = new PostView();
+            PostDto post = new PostDto();
             post.setPicUrl(imageData);
             post.setPostText(description);
             post.setTag(tag);

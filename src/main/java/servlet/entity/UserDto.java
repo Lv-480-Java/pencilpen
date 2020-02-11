@@ -1,23 +1,23 @@
 package servlet.entity;
 
-public class UserView {
+public class UserDto {
 
     private String username;
     private String password;
     private String email;
 
 
-    public UserView(String email, String username  ,String password) {
+    public UserDto(String email, String username  , String password) {
         this.username = username;
         this.password = password;
         this.email = email;
     }
-    public UserView(String username  ,String password) {
+    public UserDto(String username  , String password) {
         this.username = username;
         this.password = password;
     }
 
-    public UserView(){}
+    public UserDto(){}
 
     public String getEmail() {
         return email;

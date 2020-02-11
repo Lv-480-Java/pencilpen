@@ -1,11 +1,10 @@
 package domain.service;
 
-import dao.implementations.Mapper;
 import dao.implementations.CommentDao;
 import dao.implementations.PostDao;
 import dao.implementations.UserDao;
 import domain.entity.*;
-import servlet.entity.PleasantView;
+import servlet.entity.PleasantDto;
 
 import java.util.Collections;
 import java.util.List;
@@ -36,7 +35,7 @@ public class PostService {
         return posts;
     }
 
-    public void addLike(PleasantView pleasant) {
+    public void addLike(PleasantDto pleasant) {
 
     }
 }

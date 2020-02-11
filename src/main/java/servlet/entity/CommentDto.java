@@ -1,6 +1,6 @@
 package servlet.entity;
 
-public class CommentView {
+public class CommentDto {
     private String nickname;
     private String postId;
     private String commentText;
