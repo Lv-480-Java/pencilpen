@@ -1,16 +1,20 @@
 package domain.service;
 
-import dao.Mapper;
+import dao.implementations.Mapper;
+import dao.implementations.PostDao;
 import domain.entity.Post;
+import domain.entity.User;
 
 import java.util.List;
 
 public class ProfileService {
 
     public List<Post> getUsersPosts(String username) {
-        Mapper<Post> postMapper = new Mapper<>(Post.class);
-        List<Post> posts = postMapper.getBy("nickname", username);
-        return posts;
+        PostDao postDao = new PostDao();
+        User user = new User();
+        user.setNickname(username);
+        return postDao.getByUser(user);
+
     }
 
 

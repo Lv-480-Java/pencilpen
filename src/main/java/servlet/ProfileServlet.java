@@ -1,8 +1,8 @@
 package servlet;
 
-import domain.entity.Post;
-import domain.entity.UserRegistered;
-import domain.service.AuthenticationService;
+import domain.EntityMapper;
+import servlet.entity.PostView;
+import servlet.entity.UserView;
 import domain.service.ProfileService;
 
 import javax.servlet.RequestDispatcher;
@@ -15,22 +15,31 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static domain.service.AuthenticationService.validate;
+
+import static domain.service.AuthenticationService.validateUser;
 
 @WebServlet("/profile")
 public class ProfileServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
 
-        if (validate((UserRegistered) session.getAttribute("user"))) {
+        if (validateUser((UserView) session.getAttribute("user"))) {
 
             String postUsername = (String) request.getParameter("username");
 
             ProfileService profileService = new ProfileService();
-            List<Post> postList;
+            List<PostView> postList;
 
-            postList = profileService.getUsersPosts(postUsername);
+            postList = profileService
+                            .getUsersPosts(postUsername)
+                            .stream()
+                            .map(EntityMapper::postToView)
+                            .collect(Collectors.toList());
+            for (PostView post: postList){
+                System.out.println(post.toString());
+            }
             Collections.reverse(postList);
 
             request.setAttribute("postList", postList);

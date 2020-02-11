@@ -1,6 +1,7 @@
-package dao;
+package dao.implementations;
 
 
+import dao.implementations.Mapper;
 import org.apache.log4j.Logger;
 
 import java.io.FileInputStream;

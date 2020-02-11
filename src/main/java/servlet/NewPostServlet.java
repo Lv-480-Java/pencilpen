@@ -7,15 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
-import java.net.http.HttpRequest;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import domain.entity.Post;
-import domain.entity.UserRegistered;
+import servlet.entity.PostView;
+import servlet.entity.UserView;
 import domain.service.PostService;
 
-import static domain.service.AuthenticationService.validate;
+import static domain.EntityMapper.*;
+import static domain.service.AuthenticationService.validateUser;
 
 
 @WebServlet("/add")
@@ -29,7 +29,7 @@ public class NewPostServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        UserRegistered user = (UserRegistered) session.getAttribute("user");
+        UserView user = (UserView) session.getAttribute("user");
 
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
 
@@ -42,17 +42,17 @@ public class NewPostServlet extends HttpServlet {
         String tag = jsonObject.get("tag").getAsString();
         String imageData = jsonObject.get("imageData").getAsString();
 
-        if (validate(user) &&
+        if (validateUser(user) &&
                 description != null) {
 
-            Post post = new Post();
+            PostView post = new PostView();
             post.setPicUrl(imageData);
             post.setPostText(description);
-            post.setTitle(tag);
+            post.setTag(tag);
             post.setUsername(user.getUsername());
 
             PostService newPostController = new PostService();
-            newPostController.addPost(post);
+            newPostController.addPost(viewToPost(post));
         }
     }
 }

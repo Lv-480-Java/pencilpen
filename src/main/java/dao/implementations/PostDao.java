@@ -1,6 +1,5 @@
 package dao.implementations;
 
-import dao.Mapper;
 import domain.entity.Post;
 import domain.entity.Tag;
 import domain.entity.User;
@@ -20,5 +19,13 @@ public class PostDao {
 
     public List<Post> getByTag(Tag tag){
         return mapper.getLike("title" , tag.getTagName());
+    }
+
+    public List<Post> getById(String id){
+        return mapper.getBy("id" , id);
+    }
+
+    public void setPost(Post post){
+        mapper.addField(post);
     }
 }

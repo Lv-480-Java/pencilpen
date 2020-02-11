@@ -1,12 +1,9 @@
 package domain.service;
 
-import dao.Mapper;
 import dao.implementations.PostDao;
 import domain.entity.Post;
 import domain.entity.Tag;
-import javafx.geometry.Pos;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

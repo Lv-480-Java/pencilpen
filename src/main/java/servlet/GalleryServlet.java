@@ -1,10 +1,10 @@
 package servlet;
 
 
-import dao.Mapper;
-import domain.entity.Post;
+import domain.EntityMapper;
 import domain.service.PostService;
 import domain.service.SearchService;
+import servlet.entity.PostView;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,22 +13,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static domain.EntityMapper.postToView;
 
 @WebServlet("/gallery")
 public class GalleryServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         String tag = request.getParameter("tag");
-        List<Post> posts;
+        List<PostView> posts;
 
         if (tag != null) {
             SearchService searchService = new SearchService();
-            posts = searchService.findByTag(tag);
+            posts = searchService
+                    .findByTag(tag)
+                    .stream()
+                    .map(EntityMapper::postToView)
+                    .collect(Collectors.toList());
         } else {
             PostService postService = new PostService();
-            posts = postService.getAllPosts();
+            posts = postService
+                    .getAllPosts()
+                    .stream()
+                    .map(EntityMapper::postToView)
+                    .collect(Collectors.toList());
         }
         request.setAttribute("postList", posts);
 

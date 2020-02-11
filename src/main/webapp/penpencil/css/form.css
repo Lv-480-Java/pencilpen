@@ -113,6 +113,17 @@ z-index:10;
     pointer-events: all;
 
 }
+.canvas {
+    text-align: center;
+    z-index: -1;
+    position: absolute;
+    width: 524px;
+    height: 168px;
+    bottom: -40px;
+    transform: translate(-50%, -50%);
+    pointer-events: all;
+
+}
 
 #find-wrapper {
     text-align: center;

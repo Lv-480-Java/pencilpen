@@ -1,23 +1,30 @@
-package domain.entity;
+package servlet.entity;
 
-public class UserRegistered {
+public class UserView {
 
     private String username;
     private String password;
-    private int id;
+    private String email;
 
 
-    public UserRegistered(String username, String password) {
+    public UserView(String email, String username  ,String password) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
+    public UserView(String username  ,String password) {
         this.username = username;
         this.password = password;
     }
 
-    public int getId() {
-        return id;
+    public UserView(){}
+
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getUsername() {

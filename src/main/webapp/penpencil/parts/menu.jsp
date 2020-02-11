@@ -1,8 +1,8 @@
-<%@ page import="domain.entity.UserRegistered" %>
+<%@ page import="servlet.entity.UserView" %>
 
 <%
 
-        UserRegistered user =(UserRegistered) session.getAttribute("user");
+        UserView user =(UserView) session.getAttribute("user");
         String auth;
         String name=null;
         if(user == null){

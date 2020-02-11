@@ -1,9 +1,8 @@
 package domain.entity;
 
-import dao.Mapper;
+import dao.implementations.Mapper;
 import dao.TableName;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 

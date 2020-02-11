@@ -1,9 +1,7 @@
 package servlet;
 
-import domain.entity.User;
-import domain.exception.registration.AlreadyExistsException;
-import domain.exception.registration.PasswordException;
 import domain.service.AuthenticationService;
+import servlet.entity.UserView;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,20 +21,20 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        AuthenticationService authenticationServiceController = new AuthenticationService();
+        AuthenticationService authentication = new AuthenticationService();
 
         String email = request.getParameter("email");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String repeatedPassword = request.getParameter("password-repeat");
 
-        User userToRegister = new User(email,username,password);
+        UserView userToRegister = new UserView(email,username,password);
         boolean isSuccessRegistered=false;
 
-        String result = "Success! Now you can login with your data";
-
+        String result = null;
         try {
-            isSuccessRegistered = authenticationServiceController.register(userToRegister, repeatedPassword);
+            isSuccessRegistered = authentication.register(userToRegister, repeatedPassword);
+            result = "Success! Now you can login with your data";
         }catch (Exception e){
             result = e.getMessage();
         }

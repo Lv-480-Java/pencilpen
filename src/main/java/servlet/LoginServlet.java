@@ -1,9 +1,7 @@
 package servlet;
 
 
-import domain.entity.User;
-import domain.entity.UserRegistered;
-import domain.service.AuthenticationService;
+import servlet.entity.UserView;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,15 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static domain.service.AuthenticationService.validate;
+import static domain.service.AuthenticationService.validateUser;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        UserRegistered user = (UserRegistered)session.getAttribute("user");
+        UserView user = (UserView)session.getAttribute("user");
 
-        if (!validate(user)) {
+        if (!validateUser(user)) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/login.jsp");
             dispatcher.forward(request, response);
         } else {
@@ -38,10 +36,10 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         HttpSession session = request.getSession();
-        if (!validate((UserRegistered) session.getAttribute("user"))) {
-            UserRegistered user = new UserRegistered(username, password);
+        if (!validateUser((UserView) session.getAttribute("user"))) {
+            UserView user = new UserView(username, password);
 
-            if (validate(user)) {
+            if (validateUser(user)) {
                 session.setAttribute("user", user);
                 response.sendRedirect("/profile?username=" + username);
                 System.out.println(" ITS OKAY");

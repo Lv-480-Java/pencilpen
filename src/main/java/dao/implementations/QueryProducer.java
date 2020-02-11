@@ -1,6 +1,7 @@
-package dao;
+package dao.implementations;
 
 
+import dao.implementations.Mapper;
 import org.apache.log4j.Logger;
 
 import java.lang.reflect.Field;
@@ -122,7 +123,7 @@ public class QueryProducer<T> {
 
     private boolean fieldIsList(Field field){
         return (field.getType().getName().equals("java.util.List") ||
-                field.getType().getName().equals("dao.Mapper"));
+                field.getType().getName().equals("dao.implementations.Mapper"));
     }
 
     private String getColumnsForIsnertion(T objectToUpdate) throws IllegalAccessException {
@@ -130,7 +131,7 @@ public class QueryProducer<T> {
 
         for (Field field : allFields) {
             if (!(field.getType().getName().equals("java.util.List") ||
-                    field.getType().getName().equals("dao.Mapper") ||
+                    field.getType().getName().equals("dao.implementations.Mapper") ||
                     field.getName().equals("id")
             )) {
                 field.setAccessible(true);

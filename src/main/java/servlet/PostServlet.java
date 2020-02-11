@@ -1,9 +1,7 @@
 package servlet;
 
-import dao.Mapper;
-import domain.entity.Comment;
-import domain.entity.UserRegistered;
-import domain.service.AuthenticationService;
+import servlet.entity.PleasantView;
+import servlet.entity.UserView;
 import domain.service.PostService;
 
 import javax.servlet.RequestDispatcher;
@@ -14,9 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
-
-import static domain.service.AuthenticationService.validate;
+import static domain.EntityMapper.*;
+import static domain.service.AuthenticationService.validateUser;
 
 
 @WebServlet("/post")
@@ -24,17 +21,20 @@ public class PostServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String postId = (String) request.getParameter("post-id");
 
-
         HttpSession session = request.getSession();
-        UserRegistered userRegistered = (UserRegistered) session.getAttribute("user");
+        UserView userView = (UserView) session.getAttribute("user");
 
         if (postId != null) {
-            PostService controller = new PostService();
-            request.setAttribute("post", controller.getPost(postId));
+            PostService postService = new PostService();
+            request.setAttribute("post", postToView(postService.getPost(postId)));
 
-            String like = (String) request.getParameter("like");
-            if (like != null && validate(userRegistered)) {
-                controller.addLike(postId, userRegistered.getUsername());
+            if (request.getParameter("like") != null && validateUser(userView)) {
+
+                PleasantView pleasant = new PleasantView();
+                pleasant.setUsername(userView.getUsername());
+                pleasant.setPostId(postId);
+
+                postService.addLike(pleasant);
             }
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/post.jsp");

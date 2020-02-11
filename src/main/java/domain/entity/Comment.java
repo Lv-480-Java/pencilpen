@@ -5,7 +5,6 @@ import dao.TableName;
 @TableName(name="Comment")
 public class Comment  {
     private int userId;
-    private String nickname;
     private String postId;
     private String addDate;
     private String commentText;
@@ -64,11 +63,4 @@ public class Comment  {
         this.id = id;
     }
 
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
 }

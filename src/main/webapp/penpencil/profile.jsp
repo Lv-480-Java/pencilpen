@@ -19,12 +19,12 @@
 
 
             <jsp:include page="parts/menu.jsp" />
-            <%@ page import="domain.entity.*" %>
+            <%@ page import="servlet.entity.*" %>
                 <%@ page import="java.util.*"%>
 
 
                     <%
-    List<Post> postList = (ArrayList<Post>) request.getAttribute("postList");
+    List<PostView> postList = (ArrayList<PostView>) request.getAttribute("postList");
     %>
 
 
@@ -38,7 +38,7 @@
 
 
 
-                        <% for(Post post: postList){ %>
+                        <% for(PostView post: postList){ %>
 
                             <a href="/post?post-id=<%= post.getId()%>">
                                 <div class="content-block">
@@ -64,18 +64,19 @@
                                         <div class="tag-container">
                                             <div class="tag1">
                                                 <p>
-                                                    <%= post.getTitle() %>
+                                                    <%= post.getTag() %>
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
                                     <img class="image" height=90px src="data:image/png;base64, <%= post.getPicUrl() %>" alt="images">
+                                    <canvas id="can"  class="canvas" width="600" height="180px"></canvas>
                                 </div>
                             </a>
 
                             <% }
     %>
-
+            <script type="text/javascript" src="penpencil/scripts/crop.js"></script>
         </body>
 
         </html>

@@ -1,10 +1,8 @@
 package dao.implementations;
 
-import dao.Mapper;
 import domain.entity.Comment;
 import domain.entity.Post;
 import domain.entity.User;
-import javafx.geometry.Pos;
 
 import java.util.List;
 

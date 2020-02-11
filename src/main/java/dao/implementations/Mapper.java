@@ -1,5 +1,7 @@
-package dao;
+package dao.implementations;
 
+import dao.NoSuchFieldException;
+import dao.TableName;
 import org.apache.log4j.Logger;
 
 import java.lang.annotation.AnnotationFormatError;
@@ -21,7 +23,7 @@ public class Mapper<T> {
 
     private QueryProducer<T> queryProducer;
 
-    public Mapper(Class<T> typeParameterClass) {
+     public Mapper(Class<T> typeParameterClass) {
         this.typeParameterClass = typeParameterClass;
         allFields = typeParameterClass.getDeclaredFields();
 
@@ -97,7 +99,7 @@ public class Mapper<T> {
 
     private boolean fieldIsList(Field field) {
         return (field.getType().getName().equals("java.util.List") ||
-                field.getType().getName().equals("dao.Mapper"));
+                field.getType().getName().equals("dao.implementations.Mapper"));
     }
 
     private List<T> getField(String fieldName, String fieldValue, String sqlQuery ) {

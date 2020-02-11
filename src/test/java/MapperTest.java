@@ -1,10 +1,4 @@
-import dao.Mapper;
-import domain.entity.Comment;
-import domain.entity.User;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.UUID;
 
 public class MapperTest {
 
