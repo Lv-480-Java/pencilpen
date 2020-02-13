@@ -21,7 +21,6 @@ public class CommentDao {
     }
 
     public void addComment(Comment comment){
-        UserDao userMapper = new UserDao();
         mapper.addField(comment);
     }
 

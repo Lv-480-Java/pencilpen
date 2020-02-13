@@ -27,4 +27,8 @@ public class UserDao {
     public void setUser(User user){
         mapper.addField(user);
     }
+
+    public void updateUser(User user){
+        mapper.updateField(user);
+    }
 }

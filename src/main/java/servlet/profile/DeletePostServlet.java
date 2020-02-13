@@ -3,7 +3,6 @@ package servlet.profile;
 import domain.service.PostService;
 import servlet.entity.UserDto;
 
-import javax.jms.Session;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static domain.entity.EntityMapper.viewToUser;
+import static domain.EntityMapper.viewToUser;
 
 @WebServlet("/remove")
 public class DeletePostServlet extends HttpServlet {

@@ -5,19 +5,29 @@ public class UserDto {
     private String username;
     private String password;
     private String email;
+    private int level;
 
+    public UserDto() {
+    }
 
-    public UserDto(String email, String username  , String password) {
+    public UserDto(String email, String username, String password) {
         this.username = username;
         this.password = password;
         this.email = email;
     }
-    public UserDto(String username  , String password) {
+
+    public UserDto(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public UserDto(){}
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     public String getEmail() {
         return email;

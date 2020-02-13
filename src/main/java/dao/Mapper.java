@@ -127,10 +127,17 @@ public class Mapper<T> {
                     String fieldResultSet = "";
 
                     if (!fieldIsList(field)) {
-                        fieldResultSet = resultSet.getString(field.getName());
+                        try {
+                            fieldResultSet = resultSet.getString(field.getName());
+                        }catch (Exception e){
+                            log.info("there are not all columns in request ");
+                        }
                     }
-
-                    setFieldValues(fieldResultSet, field, entityObject);
+                    try {
+                        setFieldValues(fieldResultSet, field, entityObject);
+                    }catch (Exception e){
+                        log.info("there are not all columns in request ");
+                    }
                 }
                 entityList.add(entityObject);
             }
@@ -140,9 +147,25 @@ public class Mapper<T> {
         return entityList;
     }
 
+    private boolean columnExists(ResultSet rs, String column){
+        try{
+            rs.findColumn(column);
+            return true;
+        } catch (SQLException e){
+            log.info("column doesn't exist "+ column);
+        }
+        return false;
+    }
+
     public List<T> getBy(String fieldName, String fieldValue){
 
         String sqlQuery = queryProducer.getSqlSelectQuery(fieldName, fieldValue);
+        return getField(fieldName, fieldValue, sqlQuery);
+    }
+
+    public List<T> getFieldBy(String[] fields, String fieldName, String fieldValue){
+        String sqlQuery = queryProducer.getSqlSelectFieldQuery(fields, fieldName, fieldValue);
+        System.out.println(sqlQuery);
         return getField(fieldName, fieldValue, sqlQuery);
     }
 

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import static domain.entity.EntityMapper.*;
+import static domain.EntityMapper.*;
 import static domain.service.AuthenticationService.validateUser;
 
 

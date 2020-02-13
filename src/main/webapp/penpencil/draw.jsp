@@ -18,8 +18,9 @@
 
             <jsp:include page="parts/menu.jsp" />
             <%@ page import="java.util.*"%>
+            <%@ page import="servlet.manage.BackgroundManager" %>
 
-                <div id="panel-wraper">
+            <div id="panel-wraper">
 
                     <canvas id="canvas" width="520" height="520"></canvas>
                     <div id="all-panel">
@@ -78,10 +79,8 @@
                                 <input id="submit-button" type="submit" name="Submit" value="Submit">
                             </form>
                         </div>
-
                     </div>
                 </div>
-
         </body>
 
         </html>

@@ -15,6 +15,7 @@
 <jsp:include page="parts/menu.jsp"/>
 <%@ page import="java.util.*" %>
 <%@ page import="servlet.entity.*" %>
+<%@ page import="servlet.manage.BackgroundManager" %>
 
 <div id="find-wrapper">
     <form action="/gallery" method="get">

@@ -1,6 +1,10 @@
-package domain.entity;
+package domain;
 
 import dao.implementation.UserDao;
+import domain.entity.Comment;
+import domain.entity.Pleasant;
+import domain.entity.Post;
+import domain.entity.User;
 import servlet.entity.CommentDto;
 import servlet.entity.PleasantDto;
 import servlet.entity.PostDto;
@@ -30,7 +34,9 @@ public class EntityMapper {
         postDto.setPostText(post.getPostText());
         postDto.setTag(post.getTitle());
         postDto.setUsername(post.getUsername());
+        if(post.getLikeList()!=null)
         postDto.setLikeList(post.getLikeList().stream().map(EntityMapper::pleasantToView).collect(Collectors.toList()));
+        if(post.getCommentList()!=null)
         postDto.setCommentList(post.getCommentList().stream().map(EntityMapper::commentToView).collect(Collectors.toList()));
         postDto.setId(post.getId());
         return postDto;
@@ -42,6 +48,7 @@ public class EntityMapper {
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
         user.setPass(userDto.getPassword());
+        user.setLevel(userDto.getLevel());
         return user;
     }
 
@@ -50,6 +57,7 @@ public class EntityMapper {
         userDto.setUsername(user.getUsername());
         userDto.setEmail(user.getEmail());
         userDto.setPassword(user.getPass());
+        userDto.setLevel(user.getLevel());
         return userDto;
     }
 

@@ -5,6 +5,7 @@ import dao.Mapper;
 import org.apache.log4j.Logger;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 
 public class QueryProducer<T> {
 
@@ -22,7 +23,7 @@ public class QueryProducer<T> {
     private final String SqlInsertQuery = "INSERT INTO %s (%s) values (%s)";
     private final String SqlUpdateQuery = "UPDATE %s SET %s WHERE id = \"%s\"";
 
-    public QueryProducer(Field[] allFields, String tableName, Field idField){
+    public QueryProducer(Field[] allFields, String tableName, Field idField) {
         this.tableName = tableName;
         this.allFields = allFields;
         this.idField = idField;
@@ -38,11 +39,24 @@ public class QueryProducer<T> {
         return sqlQuery;
     }
 
+    String getSqlSelectFieldQuery(String[] fields, String fieldRequest, String fieldValue) {
+        StringBuilder fieldsString = new StringBuilder("");
+
+        String field = Arrays
+                .toString(fields)
+                .replaceAll("\\[", " ")
+                .replaceAll("]", " ");
+        String sqlQuery = String.format(sqlSelectQuery, field, tableName, fieldRequest, fieldValue);
+
+        //System.out.println(sqlQuery);
+        return sqlQuery;
+    }
+
     String getSqlSelectLikeQuery(String fieldName, String fieldValue) {
         StringBuilder fieldsString = new StringBuilder("");
 
         String fields = getAllFields();
-        String sqlQuery = String.format(sqlSelectLikeQuery, fields, tableName, fieldName, "%"+fieldValue+"%");
+        String sqlQuery = String.format(sqlSelectLikeQuery, fields, tableName, fieldName, "%" + fieldValue + "%");
 
         //System.out.println(sqlQuery);
         return sqlQuery;
@@ -96,7 +110,7 @@ public class QueryProducer<T> {
                     tableName,
                     sqlQueryColumns,
                     idField.get(objectToUpdate));
-           // System.out.println(sqlQuery);
+            // System.out.println(sqlQuery);
         } catch (IllegalAccessException e) {
             log.error("Cannot get acces to field", e);
         }
@@ -121,7 +135,7 @@ public class QueryProducer<T> {
         return fields.toString();
     }
 
-    private boolean fieldIsList(Field field){
+    private boolean fieldIsList(Field field) {
         return (field.getType().getName().equals("java.util.List") ||
                 field.getType().getName().equals("dao.Mapper"));
     }
@@ -145,7 +159,6 @@ public class QueryProducer<T> {
         sqlQueryColumns = new StringBuilder(sqlQueryColumns.toString().replaceFirst(",", ""));
         return sqlQueryColumns.toString();
     }
-
 
 
 }

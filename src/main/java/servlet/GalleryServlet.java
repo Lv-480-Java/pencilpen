@@ -1,7 +1,7 @@
 package servlet;
 
 
-import domain.entity.EntityMapper;
+import domain.EntityMapper;
 import domain.service.PostService;
 import domain.service.SearchService;
 import servlet.entity.PostDto;

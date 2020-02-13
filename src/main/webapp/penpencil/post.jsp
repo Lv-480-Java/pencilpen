@@ -26,11 +26,13 @@
                 ${post.getPostText()}
             </p>
         </div>
+        <a href="/profile?username=${post.getUsername()}">
         <div class="username-post">
             <p>
                 ${post.getUsername()}
             </p>
         </div>
+        </a>
 
         <a href="/post?post-id=${post.getId()}&like=true">
             <div class="like-div-post">

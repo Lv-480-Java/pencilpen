@@ -1,6 +1,7 @@
 package servlet.profile;
 
-import domain.entity.EntityMapper;
+import domain.EntityMapper;
+import domain.service.LevelService;
 import servlet.entity.PostDto;
 import servlet.entity.UserDto;
 import domain.service.ProfileService;
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-import static domain.entity.EntityMapper.viewToUser;
+import static domain.EntityMapper.viewToUser;
 import static domain.service.AuthenticationService.validateUser;
 
 @WebServlet("/profile")
@@ -26,10 +27,12 @@ public class ProfileServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
         UserDto user = (UserDto) session.getAttribute("user");
+        LevelService levelService = new LevelService();
 
         if (validateUser(viewToUser(user))) {
-
             String postUsername = (String) request.getParameter("username");
+
+            levelService.calculateLevel(postUsername);
             if(postUsername==null){
                 postUsername = user.getUsername();
             }

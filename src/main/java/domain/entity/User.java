@@ -9,6 +9,7 @@ public class User {
     private String username;
     private String pass;
     private int id;
+    private int level;
 
     public User(String email, String username, String pass) {
         this.username = username;
@@ -26,6 +27,14 @@ public class User {
                 ", username='" + username + '\'' +
                 ", pass='" + pass + '\'' +
                 '}';
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public String getUsername() {

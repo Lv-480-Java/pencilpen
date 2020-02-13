@@ -38,4 +38,9 @@ public class PostDao {
     public void updatePost(Post post){
         mapper.updateField(post);
     }
+
+    public List<Post> getIdByUserId(String userId) {
+        String[] list = {"id"};
+        return mapper.getFieldBy( list, "userId", userId);
+    }
 }

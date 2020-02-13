@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static domain.entity.EntityMapper.viewToComment;
-import static domain.entity.EntityMapper.viewToUser;
+import static domain.EntityMapper.viewToComment;
+import static domain.EntityMapper.viewToUser;
 import static domain.service.AuthenticationService.validateUser;
 
 @WebServlet("/comment")

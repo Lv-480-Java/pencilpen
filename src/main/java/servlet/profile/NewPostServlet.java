@@ -14,7 +14,7 @@ import servlet.entity.PostDto;
 import servlet.entity.UserDto;
 import domain.service.PostService;
 
-import static domain.entity.EntityMapper.*;
+import static domain.EntityMapper.*;
 import static domain.service.AuthenticationService.validateUser;
 
 
