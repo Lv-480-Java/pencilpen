@@ -21,9 +21,9 @@ public class DeletePostServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String postId = request.getParameter("post-id");
         HttpSession session = request.getSession();
+
         UserDto user = (UserDto) session.getAttribute("user");
         PostService service = new PostService();
-
         try {
             service.removePost(postId, viewToUser(user));
             response.sendRedirect("/profile?username="+user.getUsername());
@@ -32,7 +32,6 @@ public class DeletePostServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/gallery.jsp");
             dispatcher.forward(request, response);
         }
-
     }
 
     @Override

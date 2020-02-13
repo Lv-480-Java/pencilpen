@@ -21,7 +21,6 @@ public class Post {
 
     private List<Pleasant> likeList ;
     private List<Comment> commentList ;
-
     private List<Tag> tagList = new ArrayList<>();
 
     private static Mapper<Pleasant> likeListMapper = new Mapper<>(Pleasant.class);

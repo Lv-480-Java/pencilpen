@@ -28,16 +28,16 @@ public class NewPostServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-
         UserDto user = (UserDto) session.getAttribute("user");
 
         BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
 
         String json = "";
         json = br.readLine();
-        JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
 
+        JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
         String description = jsonObject.get("description").getAsString();
+
         String tag = jsonObject.get("tag").getAsString();
         String imageData = jsonObject.get("imageData").getAsString();
 
@@ -46,10 +46,11 @@ public class NewPostServlet extends HttpServlet {
 
             PostDto post = new PostDto();
             post.setPicUrl(imageData);
+
             post.setPostText(description);
             post.setTag(tag);
-            post.setUsername(user.getUsername());
 
+            post.setUsername(user.getUsername());
             PostService newPostController = new PostService();
             newPostController.addPost(viewToPost(post));
         }

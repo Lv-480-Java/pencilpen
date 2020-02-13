@@ -13,6 +13,7 @@ public class ScheduledTask extends TimerTask {
     public void run() {
         LocalDate date = LocalDate.now();
         DayOfWeek dayOfWeek = date.getDayOfWeek();
+
         if (dayOfWeek.getValue() == DayOfWeek.THURSDAY.getValue()) {
             PostDeleteJob postDeleteJob = new PostDeleteJob();
             postDeleteJob.deletePosts();

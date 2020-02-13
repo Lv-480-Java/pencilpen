@@ -16,7 +16,6 @@ public class LevelService {
 
     public void calculateLevel(String username){
         int actionValue = 1;
-
         User userVerified = userMapper.getByUsername(username).get(0);
 
         int likesByUser = pleasantMapper.getUserLikes(userVerified.getId()).size();

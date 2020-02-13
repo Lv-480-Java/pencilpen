@@ -43,8 +43,6 @@ public class LoginServlet extends HttpServlet {
             if (validateUser(viewToUser(user))) {
                 session.setAttribute("user", user);
                 response.sendRedirect("/profile?username=" + username);
-                //System.out.println(" ITS OKAY");
-
             } else {
                 request.setAttribute("text-result", "Error! Login or password is not right");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/login.jsp");

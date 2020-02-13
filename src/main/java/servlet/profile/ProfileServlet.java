@@ -26,6 +26,7 @@ import static domain.service.AuthenticationService.validateUser;
 public class ProfileServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
+
         UserDto user = (UserDto) session.getAttribute("user");
         LevelService levelService = new LevelService();
 
@@ -47,7 +48,6 @@ public class ProfileServlet extends HttpServlet {
                             .collect(Collectors.toList());
 
             Collections.reverse(postList);
-
             request.setAttribute("postList", postList);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/profile.jsp");
@@ -55,7 +55,6 @@ public class ProfileServlet extends HttpServlet {
 
         } else {
             request.setAttribute("text-result", "Login First, to watch profile page");
-
             RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/login.jsp");
             dispatcher.forward(request, response);
         }

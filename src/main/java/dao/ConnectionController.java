@@ -22,6 +22,7 @@ public class ConnectionController {
     private void initializeParameters() {
         FileInputStream fis;
         Properties property = new Properties();
+
         FileInputStream fileInputStream;
         String propertiesDir = "src/main/resources/database.properties";
         try {

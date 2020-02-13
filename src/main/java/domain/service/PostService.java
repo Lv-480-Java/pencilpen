@@ -5,7 +5,6 @@ import dao.implementation.PleasantDao;
 import dao.implementation.PostDao;
 import dao.implementation.UserDao;
 import domain.entity.*;
-import servlet.entity.PleasantDto;
 
 import java.util.Collections;
 import java.util.List;
@@ -14,12 +13,6 @@ public class PostService {
     private UserDao userDao = new UserDao();
     private PostDao postDao = new PostDao();
     private PleasantDao pleasantDao = new PleasantDao();
-
-    public void addPost(Post post) {
-        int userId = userDao.getByUsername(post.getUsername()).get(0).getId();
-        post.setUserId(userId);
-        postDao.setPost(post);
-    }
 
     public Post getPost(String id) {
         return postDao.getById(id).get(0);
@@ -30,15 +23,19 @@ public class PostService {
         commentMapper.addComment(comment);
     }
 
-    public List<Post> getAllPosts() {
+    public void addPost(Post post) {
+        int userId = userDao.getByUsername(post.getUsername()).get(0).getId();
+        post.setUserId(userId);
+        postDao.setPost(post);
+    }
 
+    public List<Post> getAllPosts() {
         List<Post> posts = postDao.getAll();
         Collections.reverse(posts);
         return posts;
     }
 
     public void addLike(Pleasant pleasant) {
-
         Post post = postDao.getById(String.valueOf(pleasant.getPostId())).get(0);
 
         Pleasant like = post
@@ -48,9 +45,9 @@ public class PostService {
                 .findFirst()
                 .orElse(null);
 
-        if (like!= null) {
+        if (like != null) {
             pleasantDao.deleteLike(like);
-        }else {
+        } else {
             pleasantDao.addLike(pleasant);
         }
     }
@@ -59,7 +56,6 @@ public class PostService {
         if (user == null) {
             throw new IllegalAccessException("You have no Permission do delete other posts");
         }
-
         Post postFromDb = postDao.getById(postId).get(0);
         User userFromDb = userDao.getByUsername(user.getUsername()).get(0);
 

@@ -35,7 +35,6 @@ public class QueryProducer<T> {
         String fields = getAllFields();
         String sqlQuery = String.format(sqlSelectQuery, fields, tableName, fieldName, fieldValue);
 
-        //System.out.println(sqlQuery);
         return sqlQuery;
     }
 
@@ -48,7 +47,6 @@ public class QueryProducer<T> {
                 .replaceAll("]", " ");
         String sqlQuery = String.format(sqlSelectQuery, field, tableName, fieldRequest, fieldValue);
 
-        //System.out.println(sqlQuery);
         return sqlQuery;
     }
 
@@ -58,7 +56,6 @@ public class QueryProducer<T> {
         String fields = getAllFields();
         String sqlQuery = String.format(sqlSelectLikeQuery, fields, tableName, fieldName, "%" + fieldValue + "%");
 
-        //System.out.println(sqlQuery);
         return sqlQuery;
     }
 
@@ -67,7 +64,6 @@ public class QueryProducer<T> {
         String fields = getAllFields();
         String sqlQuery = String.format(sqlSelectAllQuery, fields, tableName);
 
-        //System.out.println(sqlQuery);
         return sqlQuery;
 
     }
@@ -96,8 +92,7 @@ public class QueryProducer<T> {
 
         String sqlQuery = String.format(SqlInsertQuery, tableName, sqlQueryColumns, sqlQueryValues);
 
-        //System.out.println(sqlQuery);
-        return sqlQuery.toString();
+        return sqlQuery;
     }
 
     String getSqlUpdateQuery(T objectToUpdate) {
@@ -110,7 +105,6 @@ public class QueryProducer<T> {
                     tableName,
                     sqlQueryColumns,
                     idField.get(objectToUpdate));
-            // System.out.println(sqlQuery);
         } catch (IllegalAccessException e) {
             log.error("Cannot get acces to field", e);
         }

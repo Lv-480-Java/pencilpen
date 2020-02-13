@@ -18,7 +18,6 @@ public class BackgroundManager implements ServletContextListener {
     public void contextInitialized(ServletContextEvent context) {
         executor = new ScheduledThreadPoolExecutor(1);
         ScheduledTask.scheduleTask();
-
     }
 
     @Override

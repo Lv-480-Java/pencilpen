@@ -38,9 +38,7 @@ public class GalleryServlet extends HttpServlet {
                     .map(EntityMapper::postToView)
                     .collect(Collectors.toList());
         }
-
         request.setAttribute("postList", posts);
-
         RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/gallery.jsp");
         dispatcher.forward(request, response);
     }

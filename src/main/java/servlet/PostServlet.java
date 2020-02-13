@@ -32,14 +32,12 @@ public class PostServlet extends HttpServlet {
 
                 PleasantDto pleasant = new PleasantDto();
                 pleasant.setUsername(userDto.getUsername());
-                pleasant.setPostId(postId);
 
+                pleasant.setPostId(postId);
                 postService.addLike(viewToPleasant(pleasant));
             }
-
             RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/post.jsp");
             dispatcher.forward(request, response);
-
         }
     }
 

@@ -26,15 +26,11 @@ public class CommentServlet extends HttpServlet {
         String commentAtr = (String) request.getParameter("comment-add");
         String postAtr = (String) request.getParameter("post-id");
 
-
-        System.out.println(commentAtr);
-        System.out.println(postAtr);
-
-        if (validateUser(viewToUser(user)) &&
-                commentAtr != null) {
+        if (validateUser(viewToUser(user)) && commentAtr != null) {
 
             CommentDto comment = new CommentDto();
             comment.setCommentText(commentAtr);
+
             comment.setPostId(postAtr);
             comment.setUsername(user.getUsername());
 

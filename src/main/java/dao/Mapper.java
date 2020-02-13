@@ -165,13 +165,13 @@ public class Mapper<T> {
 
     public List<T> getFieldBy(String[] fields, String fieldName, String fieldValue){
         String sqlQuery = queryProducer.getSqlSelectFieldQuery(fields, fieldName, fieldValue);
-        System.out.println(sqlQuery);
+
         return getField(fieldName, fieldValue, sqlQuery);
     }
 
     public List<T> getLike(String fieldName, String fieldValue){
-
         String sqlQuery = queryProducer.getSqlSelectLikeQuery(fieldName, fieldValue);
+
         return getField(fieldName, fieldValue, sqlQuery);
     }
 
@@ -279,7 +279,6 @@ public class Mapper<T> {
                 if (entityObject == null) {
                     throw new IllegalArgumentException();
                 }
-
                 for (Field field : allFields) {
                     field.setAccessible(true);
                     String fieldResultSet = "";
@@ -287,7 +286,6 @@ public class Mapper<T> {
                     if (!fieldIsList(field)) {
                         fieldResultSet = resultSet.getString(field.getName());
                     }
-
                     setFieldValues(fieldResultSet, field, entityObject);
                 }
                 entityList.add(entityObject);

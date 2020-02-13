@@ -74,9 +74,7 @@ public class EntityMapper {
     public static Pleasant viewToPleasant (PleasantDto pleasantDto){
         Pleasant pleasant = new Pleasant();
         pleasant.setPostId(Integer.parseInt(pleasantDto.getPostId()));
-
         int userId = userDao.getByUsername(pleasantDto.getUsername()).get(0).getId();
-
         pleasant.setUserId(userId);
         return pleasant;
     }

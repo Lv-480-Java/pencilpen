@@ -8,6 +8,7 @@ public class User {
     private String email;
     private String username;
     private String pass;
+
     private int id;
     private int level;
 
