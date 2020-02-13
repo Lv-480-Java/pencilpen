@@ -1,4 +1,4 @@
-package dao;
+package dao.exception;
 
 public class NoSuchFieldException extends RuntimeException {
 

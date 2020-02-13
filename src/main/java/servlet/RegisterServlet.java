@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static domain.entity.EntityMapper.viewToUser;
+
 
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
@@ -33,17 +35,17 @@ public class RegisterServlet extends HttpServlet {
 
         String result = null;
         try {
-            isSuccessRegistered = authentication.register(userToRegister, repeatedPassword);
+            authentication.register(viewToUser(userToRegister), repeatedPassword);
             result = "Success! Now you can login with your data";
-        }catch (Exception e){
-            result = e.getMessage();
-        }
+            request.setAttribute("text-result", result );
 
-        request.setAttribute("text-result", result );
-        if(isSuccessRegistered){
             RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/login.jsp");
             dispatcher.forward(request, response);
-        }else {
+        }catch (Exception e){
+
+            result = e.getMessage();
+            request.setAttribute("text-result", result );
+
             RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/register.jsp");
             dispatcher.forward(request, response);
         }

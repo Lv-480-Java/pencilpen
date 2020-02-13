@@ -1,4 +1,4 @@
-package servlet;
+package servlet.profile;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +14,7 @@ import servlet.entity.PostDto;
 import servlet.entity.UserDto;
 import domain.service.PostService;
 
-import static domain.EntityMapper.*;
+import static domain.entity.EntityMapper.*;
 import static domain.service.AuthenticationService.validateUser;
 
 
@@ -35,14 +35,13 @@ public class NewPostServlet extends HttpServlet {
 
         String json = "";
         json = br.readLine();
-        System.out.println(json);
         JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
 
         String description = jsonObject.get("description").getAsString();
         String tag = jsonObject.get("tag").getAsString();
         String imageData = jsonObject.get("imageData").getAsString();
 
-        if (validateUser(user) &&
+        if (validateUser(viewToUser(user)) &&
                 description != null) {
 
             PostDto post = new PostDto();

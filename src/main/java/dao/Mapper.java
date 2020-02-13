@@ -1,7 +1,6 @@
-package dao.implementations;
+package dao;
 
-import dao.NoSuchFieldException;
-import dao.TableName;
+import dao.exception.NoSuchFieldException;
 import org.apache.log4j.Logger;
 
 import java.lang.annotation.AnnotationFormatError;
@@ -99,7 +98,7 @@ public class Mapper<T> {
 
     private boolean fieldIsList(Field field) {
         return (field.getType().getName().equals("java.util.List") ||
-                field.getType().getName().equals("dao.implementations.Mapper"));
+                field.getType().getName().equals("dao.Mapper"));
     }
 
     private List<T> getField(String fieldName, String fieldValue, String sqlQuery ) {
@@ -213,17 +212,20 @@ public class Mapper<T> {
         }
     }
 
-    public void deleteField(T objectToRemove) {
+    public void deleteField(T objectToRemove, String
+            condition) {
         if (objectToRemove != null) {
             PreparedStatement statement = null;
             try {
-                String idValue = idField.get(objectToRemove) + "";
-                if (getBy("id", idValue).size() < 1) {
-                    throw new IllegalArgumentException("the is no such record in database to delete");
+                if(condition.contains("id")) {
+                    String idValue = idField.get(objectToRemove) + "";
+                    if (getBy("id", idValue).size() < 1) {
+                        throw new IllegalArgumentException("the is no such record in database to delete");
+                    }
                 }
                 connectionController = new ConnectionController();
                 try (Connection connection = connectionController.getConnection()) {
-                    String sql = "DELETE FROM " + tableName + " where id=\"" + idValue + "\"";
+                    String sql = "DELETE FROM " + tableName + " where " + condition;
                     statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                     statement.execute();
                     try (ResultSet resultSet = statement.getGeneratedKeys()) {

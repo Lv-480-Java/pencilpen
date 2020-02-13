@@ -1,8 +1,9 @@
 package domain.service;
 
-import dao.implementations.CommentDao;
-import dao.implementations.PostDao;
-import dao.implementations.UserDao;
+import dao.implementation.CommentDao;
+import dao.implementation.PleasantDao;
+import dao.implementation.PostDao;
+import dao.implementation.UserDao;
 import domain.entity.*;
 import servlet.entity.PleasantDto;
 
@@ -12,6 +13,7 @@ import java.util.List;
 public class PostService {
     private UserDao userDao = new UserDao();
     private PostDao postDao = new PostDao();
+    private PleasantDao pleasantDao = new PleasantDao();
 
     public void addPost(Post post) {
         int userId = userDao.getByUsername(post.getUsername()).get(0).getId();
@@ -35,7 +37,37 @@ public class PostService {
         return posts;
     }
 
-    public void addLike(PleasantDto pleasant) {
+    public void addLike(Pleasant pleasant) {
 
+        Post post = postDao.getById(String.valueOf(pleasant.getPostId())).get(0);
+
+        Pleasant like = post
+                .getLikeList()
+                .stream()
+                .filter(p -> p.getUserId() == pleasant.getUserId())
+                .findFirst()
+                .orElse(null);
+
+        if (like!= null) {
+            pleasantDao.deleteLike(like);
+        }else {
+            pleasantDao.addLike(pleasant);
+        }
+    }
+
+    public void removePost(String postId, User user) throws IllegalAccessException {
+        if (user == null) {
+            throw new IllegalAccessException("You have no Permission do delete other posts");
+        }
+
+        Post postFromDb = postDao.getById(postId).get(0);
+        User userFromDb = userDao.getByUsername(user.getUsername()).get(0);
+
+        if (userFromDb.getId() == postFromDb.getUserId()) {
+            postFromDb.setIsActive(false);
+            postDao.updatePost(postFromDb);
+        } else {
+            throw new IllegalAccessException("You have no Permission do delete other posts");
+        }
     }
 }

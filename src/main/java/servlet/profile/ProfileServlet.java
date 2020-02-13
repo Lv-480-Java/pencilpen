@@ -1,6 +1,6 @@
-package servlet;
+package servlet.profile;
 
-import domain.EntityMapper;
+import domain.entity.EntityMapper;
 import servlet.entity.PostDto;
 import servlet.entity.UserDto;
 import domain.service.ProfileService;
@@ -18,16 +18,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
+import static domain.entity.EntityMapper.viewToUser;
 import static domain.service.AuthenticationService.validateUser;
 
 @WebServlet("/profile")
 public class ProfileServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
+        UserDto user = (UserDto) session.getAttribute("user");
 
-        if (validateUser((UserDto) session.getAttribute("user"))) {
+        if (validateUser(viewToUser(user))) {
 
             String postUsername = (String) request.getParameter("username");
+            if(postUsername==null){
+                postUsername = user.getUsername();
+            }
 
             ProfileService profileService = new ProfileService();
             List<PostDto> postList;
@@ -38,10 +43,6 @@ public class ProfileServlet extends HttpServlet {
                             .map(EntityMapper::postToView)
                             .collect(Collectors.toList());
 
-            for (PostDto post: postList){
-                System.out.println(post.toString());
-            }
-            
             Collections.reverse(postList);
 
             request.setAttribute("postList", postList);

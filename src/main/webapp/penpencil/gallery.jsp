@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en" dir="ltr" ng-app="myApp">
 
@@ -9,8 +10,7 @@
     <link rel="stylesheet" type="text/css" href="penpencil/css/styles.css">
     <link rel="stylesheet" type="text/css" href="penpencil/css/menu.css">
     <link rel="stylesheet" type="text/css" href="penpencil/css/form.css">
-    </head>
-
+</head>
 <body>
 <jsp:include page="parts/menu.jsp"/>
 <%@ page import="java.util.*" %>
@@ -66,13 +66,16 @@
         </div>
 
         <a href="/post?post-id=${post.getId()}">
-            <img id ="imag" style="visibility: hidden;" class="image" height=500px width=500px src="data:image/png;base64, ${post.getPicUrl()}" alt="images">
-            <canvas id="can"  class="canvas" width="600" height="180px"></canvas>
-
+            <img id="imag" style="visibility: hidden;" class="image" height=500px width=500px
+                 src="data:image/png;base64, ${post.getPicUrl()}" alt="images">
+            <canvas id="can" class="canvas" width="600" height="180px"></canvas>
         </a>
     </div>
     </a>
 </c:forEach>
+
+
+<jsp:include page="parts/error.jsp"/>
 <script type="text/javascript" src="penpencil/scripts/crop.js"></script>
 </body>
 </html>

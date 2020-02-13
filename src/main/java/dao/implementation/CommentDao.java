@@ -1,5 +1,6 @@
-package dao.implementations;
+package dao.implementation;
 
+import dao.Mapper;
 import domain.entity.Comment;
 import domain.entity.Post;
 import domain.entity.User;
@@ -7,11 +8,11 @@ import domain.entity.User;
 import java.util.List;
 
 public class CommentDao {
-    Mapper<Comment> mapper = new Mapper<>(Comment.class);
+    private static Mapper<Comment> mapper = new Mapper<>(Comment.class);
 
 
     public List<Comment> getByUser(User user){
-        List<Comment> commentList = mapper.getBy("nickname", user.getNickname());
+        List<Comment> commentList = mapper.getBy("username", user.getUsername());
         return commentList;
     }
 

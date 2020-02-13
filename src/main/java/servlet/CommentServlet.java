@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static domain.EntityMapper.viewToComment;
+import static domain.entity.EntityMapper.viewToComment;
+import static domain.entity.EntityMapper.viewToUser;
 import static domain.service.AuthenticationService.validateUser;
 
 @WebServlet("/comment")
@@ -29,13 +30,13 @@ public class CommentServlet extends HttpServlet {
         System.out.println(commentAtr);
         System.out.println(postAtr);
 
-        if (validateUser(user) &&
+        if (validateUser(viewToUser(user)) &&
                 commentAtr != null) {
 
             CommentDto comment = new CommentDto();
             comment.setCommentText(commentAtr);
             comment.setPostId(postAtr);
-            comment.setNickname(user.getUsername());
+            comment.setUsername(user.getUsername());
 
             PostService controller = new PostService();
             controller.addComment(viewToComment(comment));

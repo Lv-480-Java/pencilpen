@@ -1,15 +1,16 @@
-package dao.implementations;
+package dao.implementation;
 
+import dao.Mapper;
 import domain.entity.User;
 
 import java.util.List;
 
 public class UserDao {
 
-    Mapper<User> mapper = new Mapper<>(User.class);
+    private static Mapper<User> mapper = new Mapper<>(User.class);
 
     public List<User> getByUsername(String username){
-        List<User> UserList = mapper.getBy("nickname", username);
+        List<User> UserList = mapper.getBy("username", username);
         return UserList;
     }
 

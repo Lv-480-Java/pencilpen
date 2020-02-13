@@ -46,6 +46,14 @@
                 ${post.getTag()}
             </p>
         </div>
+
+        <a href="/remove?post-id=${post.getId()}">
+            <div class="remove-post">
+                <p class="remove-text">
+                    delete
+                </p>
+            </div>
+        </a>
     </div>
 </div>
 
@@ -55,7 +63,7 @@
         <div class="comment">
             <div class="comment-username">
                 <p>
-                        ${comment.getNickname()}
+                        ${comment.getUsername()}
                 </p>
             </div>
             <div class="comment-text">

@@ -1,10 +1,6 @@
-package domain;
+package domain.entity;
 
-import dao.implementations.UserDao;
-import domain.entity.Comment;
-import domain.entity.Pleasant;
-import domain.entity.Post;
-import domain.entity.User;
+import dao.implementation.UserDao;
 import servlet.entity.CommentDto;
 import servlet.entity.PleasantDto;
 import servlet.entity.PostDto;
@@ -41,8 +37,9 @@ public class EntityMapper {
     }
 
     public static User viewToUser(UserDto userDto){
+        if(userDto==null){return null;}
         User user = new User();
-        user.setNickname(userDto.getUsername());
+        user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
         user.setPass(userDto.getPassword());
         return user;
@@ -50,7 +47,7 @@ public class EntityMapper {
 
     public static UserDto userToView(User user){
         UserDto userDto = new UserDto();
-        userDto.setUsername(user.getNickname());
+        userDto.setUsername(user.getUsername());
         userDto.setEmail(user.getEmail());
         userDto.setPassword(user.getPass());
         return userDto;
@@ -61,8 +58,8 @@ public class EntityMapper {
         pleasantDto.setPostId(String.valueOf(pleasant.getPostId()));
 
         UserDao userDao = new UserDao();
-        String nickname = userDao.getById(String.valueOf(pleasant.getUserId())).get(0).getNickname();
-        pleasantDto.setUsername(nickname);
+        String username = userDao.getById(String.valueOf(pleasant.getUserId())).get(0).getUsername();
+        pleasantDto.setUsername(username);
         return pleasantDto;
     }
 
@@ -78,7 +75,7 @@ public class EntityMapper {
 
     public static Comment viewToComment(CommentDto commentDto){
         Comment comment = new Comment();
-        int userId = userDao.getByUsername(commentDto.getNickname()).get(0).getId();
+        int userId = userDao.getByUsername(commentDto.getUsername()).get(0).getId();
         comment.setUserId(userId);
         comment.setPostId(commentDto.getPostId());
         comment.setCommentText(commentDto.getCommentText());
@@ -87,9 +84,8 @@ public class EntityMapper {
 
     public static CommentDto commentToView(Comment comment){
         CommentDto commentDto = new CommentDto();
-        System.out.println(String.valueOf(comment.getUserId()));
-        String nickname = userDao.getById(String.valueOf(comment.getUserId())).get(0).getNickname();
-        commentDto.setNickname(nickname);
+        String username = userDao.getById(String.valueOf(comment.getUserId())).get(0).getUsername();
+        commentDto.setUsername(username);
         commentDto.setPostId(comment.getPostId());
         commentDto.setCommentText(comment.getCommentText());
         return commentDto;

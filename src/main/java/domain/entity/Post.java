@@ -1,6 +1,6 @@
 package domain.entity;
 
-import dao.implementations.Mapper;
+import dao.Mapper;
 import dao.TableName;
 
 import java.util.ArrayList;
@@ -13,10 +13,11 @@ public class Post {
     private String postText;
     private String picUrl;
     private int userId;
-    private String nickname;
+    private String username;
     private String title;
     private String postDate;
     private String location;
+    private String isActive;
 
     private List<Pleasant> likeList ;
     private List<Comment> commentList ;
@@ -105,11 +106,11 @@ public class Post {
     }
 
     public String getUsername() {
-        return nickname;
+        return username;
     }
 
-    public void setUsername(String nickname) {
-        this.nickname = nickname;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public List<Pleasant> getLikeList() {
@@ -134,5 +135,13 @@ public class Post {
 
     public void setTagList(List<Tag> tagList) {
         this.tagList = tagList;
+    }
+
+    public boolean getIsActive() {
+        return Boolean.parseBoolean(isActive);
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = String.valueOf(isActive);
     }
 }

@@ -6,12 +6,12 @@ import dao.TableName;
 public class User {
 
     private String email;
-    private String nickname;
+    private String username;
     private String pass;
     private int id;
 
-    public User(String email, String nickname, String pass) {
-        this.nickname = nickname;
+    public User(String email, String username, String pass) {
+        this.username = username;
         this.pass = pass;
         this.email = email;
     }
@@ -22,15 +22,14 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + getId() +
                 ", email='" + email + '\'' +
-                ", nickname='" + nickname + '\'' +
+                ", username='" + username + '\'' +
                 ", pass='" + pass + '\'' +
                 '}';
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getUsername() {
+        return username;
     }
 
     public String getPass() {
@@ -45,8 +44,8 @@ public class User {
         this.email = email;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setPass(String pass) {

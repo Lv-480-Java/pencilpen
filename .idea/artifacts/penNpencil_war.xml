@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="penNpencil:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>penNpencil</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="penNpencil.war">
+      <element id="artifact" artifact-name="penNpencil:war exploded" />
+    </root>
+  </artifact>
+</component>

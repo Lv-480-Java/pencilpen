@@ -75,6 +75,8 @@
                             </a>
 
                             <% } %>
+
+            <jsp:include page="parts/error.jsp"/>
             <script type="text/javascript" src="penpencil/scripts/crop.js"></script>
         </body>
 

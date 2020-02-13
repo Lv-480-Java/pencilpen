@@ -1,7 +1,7 @@
-package dao.implementations;
+package dao;
 
 
-import dao.implementations.Mapper;
+import dao.Mapper;
 import org.apache.log4j.Logger;
 
 import java.lang.reflect.Field;
@@ -34,7 +34,7 @@ public class QueryProducer<T> {
         String fields = getAllFields();
         String sqlQuery = String.format(sqlSelectQuery, fields, tableName, fieldName, fieldValue);
 
-        System.out.println(sqlQuery);
+        //System.out.println(sqlQuery);
         return sqlQuery;
     }
 
@@ -44,7 +44,7 @@ public class QueryProducer<T> {
         String fields = getAllFields();
         String sqlQuery = String.format(sqlSelectLikeQuery, fields, tableName, fieldName, "%"+fieldValue+"%");
 
-        System.out.println(sqlQuery);
+        //System.out.println(sqlQuery);
         return sqlQuery;
     }
 
@@ -53,7 +53,7 @@ public class QueryProducer<T> {
         String fields = getAllFields();
         String sqlQuery = String.format(sqlSelectAllQuery, fields, tableName);
 
-        System.out.println(sqlQuery);
+        //System.out.println(sqlQuery);
         return sqlQuery;
 
     }
@@ -82,7 +82,7 @@ public class QueryProducer<T> {
 
         String sqlQuery = String.format(SqlInsertQuery, tableName, sqlQueryColumns, sqlQueryValues);
 
-        System.out.println(sqlQuery);
+        //System.out.println(sqlQuery);
         return sqlQuery.toString();
     }
 
@@ -96,7 +96,7 @@ public class QueryProducer<T> {
                     tableName,
                     sqlQueryColumns,
                     idField.get(objectToUpdate));
-            System.out.println(sqlQuery);
+           // System.out.println(sqlQuery);
         } catch (IllegalAccessException e) {
             log.error("Cannot get acces to field", e);
         }
@@ -123,7 +123,7 @@ public class QueryProducer<T> {
 
     private boolean fieldIsList(Field field){
         return (field.getType().getName().equals("java.util.List") ||
-                field.getType().getName().equals("dao.implementations.Mapper"));
+                field.getType().getName().equals("dao.Mapper"));
     }
 
     private String getColumnsForIsnertion(T objectToUpdate) throws IllegalAccessException {
@@ -131,7 +131,7 @@ public class QueryProducer<T> {
 
         for (Field field : allFields) {
             if (!(field.getType().getName().equals("java.util.List") ||
-                    field.getType().getName().equals("dao.implementations.Mapper") ||
+                    field.getType().getName().equals("dao.Mapper") ||
                     field.getName().equals("id")
             )) {
                 field.setAccessible(true);

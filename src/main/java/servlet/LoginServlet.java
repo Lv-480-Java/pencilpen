@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import static domain.entity.EntityMapper.viewToUser;
 import static domain.service.AuthenticationService.validateUser;
 
 @WebServlet("/login")
@@ -20,7 +21,7 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession();
         UserDto user = (UserDto)session.getAttribute("user");
 
-        if (!validateUser(user)) {
+        if (!validateUser(viewToUser(user))) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/login.jsp");
             dispatcher.forward(request, response);
         } else {
@@ -36,13 +37,13 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         HttpSession session = request.getSession();
-        if (!validateUser((UserDto) session.getAttribute("user"))) {
+        if (!validateUser(viewToUser((UserDto) session.getAttribute("user")))) {
             UserDto user = new UserDto(username, password);
 
-            if (validateUser(user)) {
+            if (validateUser(viewToUser(user))) {
                 session.setAttribute("user", user);
                 response.sendRedirect("/profile?username=" + username);
-                System.out.println(" ITS OKAY");
+                //System.out.println(" ITS OKAY");
 
             } else {
                 request.setAttribute("text-result", "Error! Login or password is not right");

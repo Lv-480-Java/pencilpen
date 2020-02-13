@@ -1,6 +1,6 @@
 package domain.service;
 
-import dao.implementations.PostDao;
+import dao.implementation.PostDao;
 import domain.entity.Post;
 import domain.entity.Tag;
 

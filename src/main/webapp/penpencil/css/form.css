@@ -316,6 +316,29 @@ button[type="submit"] {
     padding-right: 5px;
 }
 
+.remove-post {
+    font-style: normal;
+    z-index: 10;
+    pointer-events: all;
+    color: #f2edd6;
+    position: absolute;
+    bottom: -40px;
+    right: 30px;
+    height: 40px;
+    background-color: #fc766a;
+    border-radius: 0px 0 17px 17px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.remove-text {
+    z-index: 10;
+    pointer-events: all;
+    position: relative;
+    bottom: 12px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 .image-post {
     text-align: center;
     position: relative;
