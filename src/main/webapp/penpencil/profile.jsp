@@ -17,10 +17,11 @@
 
 
 <jsp:include page="parts/menu.jsp"/>
-<%@ page import="servlet.entity.*" %>
-<%@ page import="java.util.*" %>
+<%@ page import="servlet.entity.PostDto" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="static domain.service.LevelService.getUserLevel" %>
 <%@ page import="static domain.EntityMapper.viewToUser" %>
+<%@ page import="java.util.List" %>
 
 
 <%
@@ -32,12 +33,13 @@
     <div class="naming" style="
   display: flex;
   align-items: center;
-  justify-content: center;" >
+  justify-content: center;">
         <p>
             <%= (String) request.getParameter("username") %>
         </p>
         <p style="color:#c83e74; margin-left: 50px"> Level: </p>
-        <p style =" text-align: center"><%= getUserLevel((String) request.getParameter("username"))%></p>
+        <p style=" text-align: center"><%= getUserLevel((String) request.getParameter("username"))%>
+        </p>
     </div>
 </div>
 

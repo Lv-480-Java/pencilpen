@@ -72,7 +72,8 @@ window.addEventListener("load", function onWindowLoad() {
             data: JSON.stringify(package),
             processData: false,
             contentType: "text/html",
-            success: function(respons) {}
+            success: function (respons) {
+            }
         });
 
     }

@@ -13,7 +13,6 @@
 <body>
 
 <jsp:include page="parts/menu.jsp"/>
-<%@ page import="java.util.*" %>
 
 
 <div id="register">

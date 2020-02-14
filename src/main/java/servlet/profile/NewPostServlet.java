@@ -1,20 +1,23 @@
 package servlet.profile;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import domain.service.PostService;
+import servlet.entity.PostDto;
+import servlet.entity.UserDto;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import servlet.entity.PostDto;
-import servlet.entity.UserDto;
-import domain.service.PostService;
-
-import static domain.EntityMapper.*;
+import static domain.EntityMapper.viewToPost;
+import static domain.EntityMapper.viewToUser;
 import static domain.service.AuthenticationService.validateUser;
 
 

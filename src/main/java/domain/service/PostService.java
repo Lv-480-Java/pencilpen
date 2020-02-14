@@ -4,7 +4,10 @@ import dao.implementation.CommentDao;
 import dao.implementation.PleasantDao;
 import dao.implementation.PostDao;
 import dao.implementation.UserDao;
-import domain.entity.*;
+import domain.entity.Comment;
+import domain.entity.Pleasant;
+import domain.entity.Post;
+import domain.entity.User;
 
 import java.util.Collections;
 import java.util.List;

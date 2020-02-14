@@ -16,7 +16,7 @@ public class ProfileService {
         user.setUsername(username);
         List<Post> postList = postDao.getByUser(user);
 
-        return  postList.stream().filter(Post::getIsActive).collect(Collectors.toList());
+        return postList.stream().filter(Post::getIsActive).collect(Collectors.toList());
     }
 
 }

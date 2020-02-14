@@ -26,9 +26,9 @@ public class DeletePostServlet extends HttpServlet {
         PostService service = new PostService();
         try {
             service.removePost(postId, viewToUser(user));
-            response.sendRedirect("/profile?username="+user.getUsername());
+            response.sendRedirect("/profile?username=" + user.getUsername());
         } catch (IllegalAccessException e) {
-            request.setAttribute("text-result",  e.getMessage());
+            request.setAttribute("text-result", e.getMessage());
             RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/gallery.jsp");
             dispatcher.forward(request, response);
         }

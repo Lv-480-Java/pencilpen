@@ -1,7 +1,6 @@
 package dao;
 
 
-import dao.Mapper;
 import org.apache.log4j.Logger;
 
 import java.lang.reflect.Field;

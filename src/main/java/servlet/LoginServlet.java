@@ -19,7 +19,7 @@ import static domain.service.AuthenticationService.validateUser;
 public class LoginServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        UserDto user = (UserDto)session.getAttribute("user");
+        UserDto user = (UserDto) session.getAttribute("user");
 
         if (!validateUser(viewToUser(user))) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/login.jsp");

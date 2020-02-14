@@ -2,12 +2,13 @@ package domain.entity;
 
 import dao.TableName;
 
-@TableName(name="User")
+@TableName(name = "User")
 public class User {
 
     private String email;
     private String username;
     private String pass;
+    public UserRole userRole;
 
     private int id;
     private int level;
@@ -28,6 +29,14 @@ public class User {
                 ", username='" + username + '\'' +
                 ", pass='" + pass + '\'' +
                 '}';
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 
     public int getLevel() {

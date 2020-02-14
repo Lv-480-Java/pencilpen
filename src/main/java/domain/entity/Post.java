@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@TableName(name="Post")
+@TableName(name = "Post")
 public class Post {
     private int id;
     private String postText;
@@ -19,18 +19,16 @@ public class Post {
     private String location;
     private String isActive;
 
-    private List<Pleasant> likeList ;
-    private List<Comment> commentList ;
+    private List<Pleasant> likeList;
+    private List<Comment> commentList;
     private List<Tag> tagList = new ArrayList<>();
 
     private static Mapper<Pleasant> likeListMapper = new Mapper<>(Pleasant.class);
     private static Mapper<Comment> commentListMapper = new Mapper<>(Comment.class);
     private static Mapper<Tag> tagListMapper = new Mapper<>(Tag.class);
 
-    public Post(){
+    public Post() {
     }
-
-
 
     @Override
     public String toString() {

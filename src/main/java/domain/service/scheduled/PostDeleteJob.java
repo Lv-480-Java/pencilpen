@@ -25,7 +25,6 @@ public class PostDeleteJob {
 
     void deletePosts() {
         String date = getDeletingDate();
-
         boolean isActivePost = false;
         dostDao.deletePostBeforeDate(date, isActivePost);
     }

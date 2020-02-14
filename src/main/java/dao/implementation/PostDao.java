@@ -30,17 +30,17 @@ public class PostDao {
         mapper.addField(post);
     }
 
+    public void updatePost(Post post) {
+        mapper.updateField(post);
+    }
+
     public void deletePostBeforeDate(String date, boolean isActive) {
         String condition = " postDate < \"%s\" AND isactive = \"%s\" ";
         mapper.deleteField(new Post(), String.format(condition, date, isActive));
     }
 
-    public void updatePost(Post post){
-        mapper.updateField(post);
-    }
-
     public List<Post> getIdByUserId(String userId) {
-        String[] list = {"id"};
-        return mapper.getFieldBy( list, "userId", userId);
+        String[] fieldsList = {"id"};
+        return mapper.getFieldBy(fieldsList, "userId", userId);
     }
 }

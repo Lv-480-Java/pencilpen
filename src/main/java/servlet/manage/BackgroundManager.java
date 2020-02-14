@@ -2,16 +2,13 @@ package servlet.manage;
 
 import domain.service.scheduled.ScheduledTask;
 
-import java.util.List;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 @WebListener
 public class BackgroundManager implements ServletContextListener {
-    public static String hello = "HELLO FREEEND";
     private ScheduledThreadPoolExecutor executor = null;
 
     @Override

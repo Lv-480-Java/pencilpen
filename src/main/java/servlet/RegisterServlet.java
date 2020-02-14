@@ -30,21 +30,20 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String repeatedPassword = request.getParameter("password-repeat");
 
-        UserDto userToRegister = new UserDto(email,username,password);
-        boolean isSuccessRegistered=false;
+        UserDto userToRegister = new UserDto(email, username, password);
 
         String result = null;
         try {
             authentication.register(viewToUser(userToRegister), repeatedPassword);
             result = "Success! Now you can login with your data";
-            request.setAttribute("text-result", result );
+            request.setAttribute("text-result", result);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/login.jsp");
             dispatcher.forward(request, response);
-        }catch (Exception e){
+        } catch (Exception e) {
 
             result = e.getMessage();
-            request.setAttribute("text-result", result );
+            request.setAttribute("text-result", result);
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/register.jsp");
             dispatcher.forward(request, response);

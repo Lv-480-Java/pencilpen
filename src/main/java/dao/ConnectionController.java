@@ -35,7 +35,7 @@ public class ConnectionController {
             dbPassword = property.getProperty("DB_PASSWORD");
 
         } catch (IOException e) {
-            log.error("File propertis cannot be opened ",e);
+            log.error("File propertis cannot be opened ", e);
         }
     }
 
@@ -43,7 +43,7 @@ public class ConnectionController {
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException e) {
-           log.error("Cannot register JDBC Driver",e);
+            log.error("Cannot register JDBC Driver", e);
         }
     }
 

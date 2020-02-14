@@ -14,8 +14,6 @@
 <body>
 
 <jsp:include page="parts/menu.jsp"/>
-<%@ page import="java.util.*" %>
-<%@ page import="servlet.entity.*" %>
 
 <c:set var="post" value="${post}"/>
 <div class="post-block">
@@ -27,11 +25,11 @@
             </p>
         </div>
         <a href="/profile?username=${post.getUsername()}">
-        <div class="username-post">
-            <p>
-                ${post.getUsername()}
-            </p>
-        </div>
+            <div class="username-post">
+                <p>
+                    ${post.getUsername()}
+                </p>
+            </div>
         </a>
 
         <a href="/post?post-id=${post.getId()}&like=true">

@@ -1,11 +1,11 @@
 package domain.service.scheduled;
 
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
-import java.time.DayOfWeek;
 
 public class ScheduledTask extends TimerTask {
 

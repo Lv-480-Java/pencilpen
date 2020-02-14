@@ -1,8 +1,8 @@
 package servlet;
 
+import domain.service.PostService;
 import servlet.entity.CommentDto;
 import servlet.entity.UserDto;
-import domain.service.PostService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +21,7 @@ public class CommentServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         HttpSession session = request.getSession();
-        UserDto user = (UserDto)session.getAttribute("user");
+        UserDto user = (UserDto) session.getAttribute("user");
 
         String commentAtr = (String) request.getParameter("comment-add");
         String postAtr = (String) request.getParameter("post-id");
@@ -36,9 +36,6 @@ public class CommentServlet extends HttpServlet {
 
             PostService controller = new PostService();
             controller.addComment(viewToComment(comment));
-
-        } else {
-            System.out.println("WRONG");
         }
         response.sendRedirect("/post?post-id= " + (String) request.getParameter("post-id"));
     }

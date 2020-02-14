@@ -2,8 +2,8 @@ package domain.entity;
 
 import dao.TableName;
 
-@TableName(name="Comment")
-public class Comment  {
+@TableName(name = "Comment")
+public class Comment {
     private int userId;
     private String postId;
     private String addDate;

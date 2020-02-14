@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class EntityMapper {
 
-   private static UserDao userDao = new UserDao();
+    private static UserDao userDao = new UserDao();
 
     public static Post viewToPost(PostDto postDto) {
         Post post = new Post();
@@ -34,16 +34,18 @@ public class EntityMapper {
         postDto.setPostText(post.getPostText());
         postDto.setTag(post.getTitle());
         postDto.setUsername(post.getUsername());
-        if(post.getLikeList()!=null)
-        postDto.setLikeList(post.getLikeList().stream().map(EntityMapper::pleasantToView).collect(Collectors.toList()));
-        if(post.getCommentList()!=null)
-        postDto.setCommentList(post.getCommentList().stream().map(EntityMapper::commentToView).collect(Collectors.toList()));
+        if (post.getLikeList() != null)
+            postDto.setLikeList(post.getLikeList().stream().map(EntityMapper::pleasantToView).collect(Collectors.toList()));
+        if (post.getCommentList() != null)
+            postDto.setCommentList(post.getCommentList().stream().map(EntityMapper::commentToView).collect(Collectors.toList()));
         postDto.setId(post.getId());
         return postDto;
     }
 
-    public static User viewToUser(UserDto userDto){
-        if(userDto==null){return null;}
+    public static User viewToUser(UserDto userDto) {
+        if (userDto == null) {
+            return null;
+        }
         User user = new User();
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
@@ -52,7 +54,7 @@ public class EntityMapper {
         return user;
     }
 
-    public static UserDto userToView(User user){
+    public static UserDto userToView(User user) {
         UserDto userDto = new UserDto();
         userDto.setUsername(user.getUsername());
         userDto.setEmail(user.getEmail());
@@ -61,7 +63,7 @@ public class EntityMapper {
         return userDto;
     }
 
-    public static PleasantDto pleasantToView(Pleasant pleasant){
+    public static PleasantDto pleasantToView(Pleasant pleasant) {
         PleasantDto pleasantDto = new PleasantDto();
         pleasantDto.setPostId(String.valueOf(pleasant.getPostId()));
 
@@ -71,7 +73,7 @@ public class EntityMapper {
         return pleasantDto;
     }
 
-    public static Pleasant viewToPleasant (PleasantDto pleasantDto){
+    public static Pleasant viewToPleasant(PleasantDto pleasantDto) {
         Pleasant pleasant = new Pleasant();
         pleasant.setPostId(Integer.parseInt(pleasantDto.getPostId()));
         int userId = userDao.getByUsername(pleasantDto.getUsername()).get(0).getId();
@@ -79,7 +81,7 @@ public class EntityMapper {
         return pleasant;
     }
 
-    public static Comment viewToComment(CommentDto commentDto){
+    public static Comment viewToComment(CommentDto commentDto) {
         Comment comment = new Comment();
         int userId = userDao.getByUsername(commentDto.getUsername()).get(0).getId();
         comment.setUserId(userId);
@@ -88,7 +90,7 @@ public class EntityMapper {
         return comment;
     }
 
-    public static CommentDto commentToView(Comment comment){
+    public static CommentDto commentToView(Comment comment) {
         CommentDto commentDto = new CommentDto();
         String username = userDao.getById(String.valueOf(comment.getUserId())).get(0).getUsername();
         commentDto.setUsername(username);
@@ -96,8 +98,6 @@ public class EntityMapper {
         commentDto.setCommentText(comment.getCommentText());
         return commentDto;
     }
-
-
 
 
 }

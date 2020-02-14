@@ -3,7 +3,7 @@ package domain.entity;
 import dao.TableName;
 
 
-@TableName(name="Tag")
+@TableName(name = "Tag")
 public class Tag {
     private String tagName;
     private int id;

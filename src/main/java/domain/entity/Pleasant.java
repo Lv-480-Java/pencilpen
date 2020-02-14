@@ -2,7 +2,7 @@ package domain.entity;
 
 import dao.TableName;
 
-@TableName(name="Pleasant")
+@TableName(name = "Pleasant")
 public class Pleasant {
     private int userId;
     private int postId;

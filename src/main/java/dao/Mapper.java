@@ -22,7 +22,7 @@ public class Mapper<T> {
 
     private QueryProducer<T> queryProducer;
 
-     public Mapper(Class<T> typeParameterClass) {
+    public Mapper(Class<T> typeParameterClass) {
         this.typeParameterClass = typeParameterClass;
         allFields = typeParameterClass.getDeclaredFields();
 
@@ -101,9 +101,8 @@ public class Mapper<T> {
                 field.getType().getName().equals("dao.Mapper"));
     }
 
-    private List<T> getField(String fieldName, String fieldValue, String sqlQuery ) {
+    private List<T> getField(String fieldName, String fieldValue, String sqlQuery) {
         List<T> entityList = new ArrayList<T>();
-
 
         if (fieldName == null || fieldValue == null) {
             throw new IllegalArgumentException();
@@ -129,13 +128,13 @@ public class Mapper<T> {
                     if (!fieldIsList(field)) {
                         try {
                             fieldResultSet = resultSet.getString(field.getName());
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             log.info("there are not all columns in request ");
                         }
                     }
                     try {
                         setFieldValues(fieldResultSet, field, entityObject);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         log.info("there are not all columns in request ");
                     }
                 }
@@ -147,29 +146,29 @@ public class Mapper<T> {
         return entityList;
     }
 
-    private boolean columnExists(ResultSet rs, String column){
-        try{
+    private boolean columnExists(ResultSet rs, String column) {
+        try {
             rs.findColumn(column);
             return true;
-        } catch (SQLException e){
-            log.info("column doesn't exist "+ column);
+        } catch (SQLException e) {
+            log.info("column doesn't exist " + column);
         }
         return false;
     }
 
-    public List<T> getBy(String fieldName, String fieldValue){
+    public List<T> getBy(String fieldName, String fieldValue) {
 
         String sqlQuery = queryProducer.getSqlSelectQuery(fieldName, fieldValue);
         return getField(fieldName, fieldValue, sqlQuery);
     }
 
-    public List<T> getFieldBy(String[] fields, String fieldName, String fieldValue){
+    public List<T> getFieldBy(String[] fields, String fieldName, String fieldValue) {
         String sqlQuery = queryProducer.getSqlSelectFieldQuery(fields, fieldName, fieldValue);
 
         return getField(fieldName, fieldValue, sqlQuery);
     }
 
-    public List<T> getLike(String fieldName, String fieldValue){
+    public List<T> getLike(String fieldName, String fieldValue) {
         String sqlQuery = queryProducer.getSqlSelectLikeQuery(fieldName, fieldValue);
 
         return getField(fieldName, fieldValue, sqlQuery);
@@ -240,7 +239,7 @@ public class Mapper<T> {
         if (objectToRemove != null) {
             PreparedStatement statement = null;
             try {
-                if(condition.contains("id")) {
+                if (condition.contains("id")) {
                     String idValue = idField.get(objectToRemove) + "";
                     if (getBy("id", idValue).size() < 1) {
                         throw new IllegalArgumentException("the is no such record in database to delete");
