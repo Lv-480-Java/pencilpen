@@ -20,7 +20,6 @@
 <%@ page import="servlet.entity.PostDto" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="static domain.service.LevelService.getUserLevel" %>
-<%@ page import="static domain.EntityMapper.viewToUser" %>
 <%@ page import="java.util.List" %>
 
 

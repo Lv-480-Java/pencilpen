@@ -47,6 +47,7 @@
             </p>
         </div>
 
+
         <a href="/remove?post-id=${post.getId()}">
             <div class="remove-post">
                 <p class="remove-text">
@@ -56,7 +57,6 @@
         </a>
     </div>
 </div>
-
 
 <c:forEach var="comment" items="${post.getCommentList()}">
     <div class="comment-wrapper">

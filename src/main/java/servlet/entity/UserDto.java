@@ -6,6 +6,7 @@ public class UserDto {
     private String password;
     private String email;
     private int level;
+    private String userRole;
 
     public UserDto() {
     }
@@ -19,6 +20,14 @@ public class UserDto {
     public UserDto(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 
     public int getLevel() {

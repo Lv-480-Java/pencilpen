@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static domain.EntityMapper.viewToUser;
+import static domain.mapping.UserMapper.dtoToUser;
 
 
 @WebServlet("/register")
@@ -34,7 +34,7 @@ public class RegisterServlet extends HttpServlet {
 
         String result = null;
         try {
-            authentication.register(viewToUser(userToRegister), repeatedPassword);
+            authentication.register(dtoToUser(userToRegister), repeatedPassword);
             result = "Success! Now you can login with your data";
             request.setAttribute("text-result", result);
 

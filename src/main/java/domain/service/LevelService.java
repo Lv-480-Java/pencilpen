@@ -38,10 +38,6 @@ public class LevelService {
         userMapper.updateUser(userVerified);
     }
 
-    public static int getUserLevel(User user) {
-        return userMapper.getByUsername(user.getUsername()).get(0).getLevel();
-    }
-
     public static int getUserLevel(String username) {
         return userMapper.getByUsername(username).get(0).getLevel();
     }

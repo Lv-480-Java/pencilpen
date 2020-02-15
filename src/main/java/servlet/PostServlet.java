@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static domain.EntityMapper.*;
+import static domain.mapping.PleasantMapper.dtoToPleasant;
+import static domain.mapping.PostMapper.postToDto;
+import static domain.mapping.UserMapper.dtoToUser;
 import static domain.service.AuthenticationService.validateUser;
 
 
@@ -27,15 +29,15 @@ public class PostServlet extends HttpServlet {
 
         if (postId != null) {
             PostService postService = new PostService();
-            request.setAttribute("post", postToView(postService.getPost(postId)));
+            request.setAttribute("post", postToDto(postService.getPost(postId)));
 
-            if (request.getParameter("like") != null && validateUser(viewToUser(userDto))) {
+            if (request.getParameter("like") != null && validateUser(dtoToUser(userDto))) {
 
                 PleasantDto pleasant = new PleasantDto();
                 pleasant.setUsername(userDto.getUsername());
 
                 pleasant.setPostId(postId);
-                postService.addLike(viewToPleasant(pleasant));
+                postService.addLike(dtoToPleasant(pleasant));
             }
             RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/post.jsp");
             dispatcher.forward(request, response);

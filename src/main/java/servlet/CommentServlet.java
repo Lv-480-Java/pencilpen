@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static domain.EntityMapper.viewToComment;
-import static domain.EntityMapper.viewToUser;
+import static domain.mapping.UserMapper.dtoToUser;
+import static domain.mapping.СommentMapper.dtoToComment;
 import static domain.service.AuthenticationService.validateUser;
 
 @WebServlet("/comment")
@@ -26,7 +26,7 @@ public class CommentServlet extends HttpServlet {
         String commentAtr = (String) request.getParameter("comment-add");
         String postAtr = (String) request.getParameter("post-id");
 
-        if (validateUser(viewToUser(user)) && commentAtr != null) {
+        if (validateUser(dtoToUser(user)) && commentAtr != null) {
 
             CommentDto comment = new CommentDto();
             comment.setCommentText(commentAtr);
@@ -35,7 +35,7 @@ public class CommentServlet extends HttpServlet {
             comment.setUsername(user.getUsername());
 
             PostService controller = new PostService();
-            controller.addComment(viewToComment(comment));
+            controller.addComment(dtoToComment(comment));
         }
         response.sendRedirect("/post?post-id= " + (String) request.getParameter("post-id"));
     }

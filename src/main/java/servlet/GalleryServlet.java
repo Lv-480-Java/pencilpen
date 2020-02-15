@@ -1,7 +1,7 @@
 package servlet;
 
 
-import domain.EntityMapper;
+import domain.mapping.PostMapper;
 import domain.service.PostService;
 import domain.service.SearchService;
 import servlet.entity.PostDto;
@@ -28,14 +28,14 @@ public class GalleryServlet extends HttpServlet {
             posts = searchService
                     .findByTag(tag)
                     .stream()
-                    .map(EntityMapper::postToView)
+                    .map(PostMapper::postToDto)
                     .collect(Collectors.toList());
         } else {
             PostService postService = new PostService();
             posts = postService
                     .getAllPosts()
                     .stream()
-                    .map(EntityMapper::postToView)
+                    .map(PostMapper::postToDto)
                     .collect(Collectors.toList());
         }
         request.setAttribute("postList", posts);

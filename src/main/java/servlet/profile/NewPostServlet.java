@@ -16,8 +16,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import static domain.EntityMapper.viewToPost;
-import static domain.EntityMapper.viewToUser;
+import static domain.mapping.PostMapper.dtoToPost;
+import static domain.mapping.UserMapper.dtoToUser;
 import static domain.service.AuthenticationService.validateUser;
 
 
@@ -44,7 +44,7 @@ public class NewPostServlet extends HttpServlet {
         String tag = jsonObject.get("tag").getAsString();
         String imageData = jsonObject.get("imageData").getAsString();
 
-        if (validateUser(viewToUser(user)) &&
+        if (validateUser(dtoToUser(user)) &&
                 description != null) {
 
             PostDto post = new PostDto();
@@ -55,7 +55,7 @@ public class NewPostServlet extends HttpServlet {
 
             post.setUsername(user.getUsername());
             PostService newPostController = new PostService();
-            newPostController.addPost(viewToPost(post));
+            newPostController.addPost(dtoToPost(post));
         }
     }
 }

@@ -62,11 +62,17 @@ public class PostService {
         Post postFromDb = postDao.getById(postId).get(0);
         User userFromDb = userDao.getByUsername(user.getUsername()).get(0);
 
-        if (userFromDb.getId() == postFromDb.getUserId()) {
+        if (userFromDb.getId() == postFromDb.getUserId() || userFromDb.getRole().equals("ADMIN")) {
             postFromDb.setIsActive(false);
             postDao.updatePost(postFromDb);
         } else {
             throw new IllegalAccessException("You have no Permission do delete other posts");
         }
+    }
+
+    public void removePost(String postId){
+        Post postFromDb = postDao.getById(postId).get(0);
+        postFromDb.setIsActive(false);
+        postDao.updatePost(postFromDb);
     }
 }

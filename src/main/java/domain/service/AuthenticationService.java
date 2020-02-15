@@ -48,7 +48,6 @@ public class AuthenticationService {
         userMapper.setUser(new User(email, username, passwordHash));
     }
 
-
     private Map<String, Boolean> validateUserFields(User user, String passwordRepeat) {
         Map<String, Boolean> resultMap = new HashMap<>();
 

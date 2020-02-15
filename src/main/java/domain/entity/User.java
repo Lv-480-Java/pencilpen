@@ -8,7 +8,7 @@ public class User {
     private String email;
     private String username;
     private String pass;
-    public UserRole userRole;
+    private String role;
 
     private int id;
     private int level;
@@ -31,12 +31,12 @@ public class User {
                 '}';
     }
 
-    public UserRole getUserRole() {
-        return userRole;
+    public String getRole() {
+        return role;
     }
 
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public int getLevel() {
