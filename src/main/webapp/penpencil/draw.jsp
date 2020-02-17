@@ -79,6 +79,9 @@
         </div>
     </div>
 </div>
+
+<jsp:include page="parts/error.jsp"/>
+
 </body>
 
 </html>

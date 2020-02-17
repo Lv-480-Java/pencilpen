@@ -72,7 +72,15 @@ window.addEventListener("load", function onWindowLoad() {
             data: JSON.stringify(package),
             processData: false,
             contentType: "text/html",
-            success: function (respons) {
+            success: function(data) {
+                for (var i=0; i<data.length; i++) {
+                    console.log(data[i]);
+                    var optionHTML = '<option>' + data[i].name + '</option>';
+                    $(".selectEstudio").append(optionHTML);
+                }
+            },
+            error: function(xhr, resp, text) {
+                console.log(xhr, resp, text);
             }
         });
 

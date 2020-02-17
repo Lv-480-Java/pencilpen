@@ -12,18 +12,18 @@ import static java.lang.Math.sqrt;
 
 public class LevelService {
 
-    private static UserDao userMapper = new UserDao();
-    private static PostDao postMapper = new PostDao();
-    private static PleasantDao pleasantMapper = new PleasantDao();
+    private static UserDao userDao = new UserDao();
+    private static PostDao postDao = new PostDao();
+    private static PleasantDao pleasantDao = new PleasantDao();
 
     public void calculateLevel(String username) {
         int actionValue = 1;
-        User userVerified = userMapper.getByUsername(username).get(0);
+        User userVerified = userDao.getByUsername(username).get(0);
 
-        int likesByUser = pleasantMapper.getUserLikes(userVerified.getId()).size();
+        int likesByUser = pleasantDao.getUserLikes(userVerified.getId()).size();
         actionValue += likesByUser;
 
-        List<Post> postList = postMapper.getIdByUserId(String.valueOf(userVerified.getId()));
+        List<Post> postList = postDao.getIdByUserId(String.valueOf(userVerified.getId()));
         actionValue += postList.size();
 
         for (Post post : postList) {
@@ -35,11 +35,11 @@ public class LevelService {
 
         int result = (int) (sqrt(1000 * actionValue) / 20);
         userVerified.setLevel(result);
-        userMapper.updateUser(userVerified);
+        userDao.updateUser(userVerified);
     }
 
     public static int getUserLevel(String username) {
-        return userMapper.getByUsername(username).get(0).getLevel();
+        return userDao.getByUsername(username).get(0).getLevel();
     }
 
 }

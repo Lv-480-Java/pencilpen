@@ -25,7 +25,6 @@ public class Mapper<T> {
     public Mapper(Class<T> typeParameterClass) {
         this.typeParameterClass = typeParameterClass;
         allFields = typeParameterClass.getDeclaredFields();
-
         getTableName();
 
         for (Field field : allFields) {
@@ -34,7 +33,6 @@ public class Mapper<T> {
                 idField.setAccessible(true);
             }
         }
-
         queryProducer = new QueryProducer<>(
                 allFields,
                 tableName,
@@ -96,54 +94,63 @@ public class Mapper<T> {
         }
     }
 
-    private boolean fieldIsList(Field field) {
+    private boolean isList(Field field) {
         return (field.getType().getName().equals("java.util.List") ||
                 field.getType().getName().equals("dao.Mapper"));
     }
 
-    private List<T> getField(String fieldName, String fieldValue, String sqlQuery) {
-        List<T> entityList = new ArrayList<T>();
-
-        if (fieldName == null || fieldValue == null) {
-            throw new IllegalArgumentException();
-        }
+    private List<T> getField(String fieldName, String sqlQuery) {
         if (!checkFieldExist(fieldName)) {
             throw new NoSuchFieldException("Field \'" + fieldName + "\' not found in the class : \"" + typeParameterClass + "\"");
         }
+        List<T> resultList = getResultFromDb(sqlQuery, this::getEntitiesFromResultSet);
+        return resultList;
+    }
 
+    private List<T> getResultFromDb(String sqlQuery, ExecuteResultInterface<T> function) {
+        List<T> resultList = null;
         try (Connection connection = (new ConnectionController()).getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            while (resultSet.next()) {
-                T entityObject = getInstance();
-                if (entityObject == null) {
-                    throw new IllegalArgumentException();
-                }
+            resultList = function.funcInterface(resultSet);
 
-                for (Field field : allFields) {
-                    field.setAccessible(true);
-                    String fieldResultSet = "";
-
-                    if (!fieldIsList(field)) {
-                        try {
-                            fieldResultSet = resultSet.getString(field.getName());
-                        } catch (Exception e) {
-                            log.info("there are not all columns in request ");
-                        }
-                    }
-                    try {
-                        setFieldValues(fieldResultSet, field, entityObject);
-                    } catch (Exception e) {
-                        log.info("there are not all columns in request ");
-                    }
-                }
-                entityList.add(entityObject);
-            }
         } catch (SQLException e) {
             log.fatal("SQL error", e);
         }
+        return resultList;
+    }
+
+    private List<T> getEntitiesFromResultSet(ResultSet resultSet) throws SQLException {
+        List<T> entityList = new ArrayList<T>();
+        while (resultSet.next()) {
+            T entityObject = getInstance();
+            if (entityObject == null) {
+                throw new IllegalArgumentException();
+            }
+            for (Field field : allFields) {
+                field.setAccessible(true);
+                insertFromResultSet(field, resultSet, entityObject);
+            }
+            entityList.add(entityObject);
+        }
         return entityList;
+    }
+
+    private void insertFromResultSet(Field field, ResultSet resultSet, T entityObject) {
+        String fieldResultSet = "";
+        if (!isList(field)) {
+            try {
+                fieldResultSet = resultSet.getString(field.getName());
+            } catch (Exception e) {
+                log.info("there are not all columns in request ");
+            }
+        }
+        try {
+            setFieldValues(fieldResultSet, field, entityObject);
+        } catch (Exception e) {
+            log.info("there are not all columns in request ");
+        }
     }
 
     private boolean columnExists(ResultSet rs, String column) {
@@ -157,32 +164,33 @@ public class Mapper<T> {
     }
 
     public List<T> getBy(String fieldName, String fieldValue) {
-
         String sqlQuery = queryProducer.getSqlSelectQuery(fieldName, fieldValue);
-        return getField(fieldName, fieldValue, sqlQuery);
+        return getField(fieldName, sqlQuery);
     }
 
     public List<T> getFieldBy(String[] fields, String fieldName, String fieldValue) {
         String sqlQuery = queryProducer.getSqlSelectFieldQuery(fields, fieldName, fieldValue);
-
-        return getField(fieldName, fieldValue, sqlQuery);
+        return getField(fieldName, sqlQuery);
     }
 
     public List<T> getLike(String fieldName, String fieldValue) {
         String sqlQuery = queryProducer.getSqlSelectLikeQuery(fieldName, fieldValue);
-
-        return getField(fieldName, fieldValue, sqlQuery);
+        return getField(fieldName, sqlQuery);
     }
 
     private void recursiveMapTheList(Field field, T entityObject) throws IllegalAccessException {
         for (Field mapField : allFields) {
+
             if ((field.getName() + "Mapper").equals(mapField.getName())) {
                 mapField.setAccessible(true);
+
                 Mapper mapper = (Mapper) mapField.get(entityObject);
                 String subTableName = tableName.toLowerCase() + "Id";
+
                 String entityId = idField.get(entityObject).toString();
                 field.set(entityObject, mapper.getBy(subTableName, entityId));
             }
+
         }
     }
 
@@ -191,7 +199,7 @@ public class Mapper<T> {
             try {
                 String sql = queryProducer.getSqlInsertQuery(objectToAdd);
                 try (Connection connection = new ConnectionController().getConnection();
-                     PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                     PreparedStatement statement = connection.prepareStatement(sql)) {
                     statement.execute();
                 }
             } catch (SQLException e) {
@@ -234,8 +242,7 @@ public class Mapper<T> {
         }
     }
 
-    public void deleteField(T objectToRemove, String
-            condition) {
+    public void deleteField(T objectToRemove, String condition) {
         if (objectToRemove != null) {
             PreparedStatement statement = null;
             try {
@@ -263,36 +270,6 @@ public class Mapper<T> {
             log.error("argument cant be null");
             throw new IllegalArgumentException();
         }
-    }
-
-    public List<T> getAll() {
-        List<T> entityList = new ArrayList<T>();
-
-        String sqlQuery = queryProducer.getSqlSelectAllQuery();
-        try (Connection connection = (new ConnectionController()).getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                T entityObject = getInstance();
-                if (entityObject == null) {
-                    throw new IllegalArgumentException();
-                }
-                for (Field field : allFields) {
-                    field.setAccessible(true);
-                    String fieldResultSet = "";
-
-                    if (!fieldIsList(field)) {
-                        fieldResultSet = resultSet.getString(field.getName());
-                    }
-                    setFieldValues(fieldResultSet, field, entityObject);
-                }
-                entityList.add(entityObject);
-            }
-        } catch (SQLException e) {
-            log.fatal("SQL error", e);
-        }
-        return entityList;
     }
 
 }

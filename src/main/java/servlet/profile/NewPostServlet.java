@@ -6,6 +6,7 @@ import domain.service.PostService;
 import servlet.entity.PostDto;
 import servlet.entity.UserDto;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,8 +40,8 @@ public class NewPostServlet extends HttpServlet {
         json = br.readLine();
 
         JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
-        String description = jsonObject.get("description").getAsString();
 
+        String description = jsonObject.get("description").getAsString();
         String tag = jsonObject.get("tag").getAsString();
         String imageData = jsonObject.get("imageData").getAsString();
 
@@ -56,6 +57,10 @@ public class NewPostServlet extends HttpServlet {
             post.setUsername(user.getUsername());
             PostService newPostController = new PostService();
             newPostController.addPost(dtoToPost(post));
+        }else{
+            request.setAttribute("text-result", "Login First before publishing pictures");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("penpencil/draw.jsp");
+            dispatcher.forward(request, response);
         }
     }
 }

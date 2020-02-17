@@ -1,14 +1,11 @@
 package domain.mapping;
 
-import domain.entity.Comment;
 import domain.entity.Post;
-import servlet.entity.PleasantDto;
 import servlet.entity.PostDto;
 
 import java.util.stream.Collectors;
 
 public class PostMapper {
-
 
     public static Post dtoToPost(PostDto postDto) {
         Post post = new Post();

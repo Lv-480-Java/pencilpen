@@ -1,10 +1,11 @@
 <html>
+
+
 <body>
-<h2>
-    Hello World!
-</h2>
-<a href="draw">Draw</a><br>
-<a href="gallery">Gallery</a><br>
-<a href="register">Register Page</a><br>
+<a href="draw">
+<div style="height:100%; width: 100%; background-color: floralwhite; margin: 0">
+
+</div>
+</a>
 </body>
 </html>

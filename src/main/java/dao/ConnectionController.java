@@ -20,7 +20,6 @@ public class ConnectionController {
     Connection connection;
 
     private void initializeParameters() {
-        FileInputStream fis;
         Properties property = new Properties();
 
         FileInputStream fileInputStream;

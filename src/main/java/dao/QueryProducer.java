@@ -29,8 +29,6 @@ public class QueryProducer<T> {
     }
 
     String getSqlSelectQuery(String fieldName, String fieldValue) {
-        StringBuilder fieldsString = new StringBuilder("");
-
         String fields = getAllFields();
         String sqlQuery = String.format(sqlSelectQuery, fields, tableName, fieldName, fieldValue);
 

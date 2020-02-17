@@ -22,7 +22,7 @@ public class AuthenticationService {
     private static final Pattern usernameRegex = Pattern.compile("^[a-zA-Z0-9._-]{3,}$");
     private static final Pattern passwordRegex = Pattern.compile("^[a-zA-Z0-9._-]{3,}$");
 
-    private static UserDao userMapper = new UserDao();
+    private static UserDao userDao = new UserDao();
     private static Logger log = Logger.getLogger(Mapper.class.getName());
 
     public void register(User userToRegister, String passwordRepeat) {
@@ -34,18 +34,17 @@ public class AuthenticationService {
         String passwordHash = null;
         Map<String, Boolean> resultMap = validateUserFields(userToRegister, passwordRepeat);
 
+        if (resultMap.containsValue(false)) {
+            String result = resultMap.keySet().toString().replaceAll("[^a-zA-Z0-9,]+", " ");
+            throw new IllegalArgumentException(result);
+        }
         try {
             passwordHash = hashPassword(password, username);
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             log.error("Cannot hash password", e);
             throw new IllegalArgumentException("Cannot hash password");
         }
-
-        if (resultMap.containsValue(false)) {
-            String result = resultMap.keySet().toString().replaceAll("[^a-zA-Z0-9,]+", " ");
-            throw new IllegalArgumentException(result);
-        }
-        userMapper.setUser(new User(email, username, passwordHash));
+        userDao.setUser(new User(email, username, passwordHash));
     }
 
     private Map<String, Boolean> validateUserFields(User user, String passwordRepeat) {
@@ -55,8 +54,8 @@ public class AuthenticationService {
         Matcher usernameMatcher = usernameRegex.matcher(user.getUsername());
         Matcher passwordMatcher = passwordRegex.matcher(user.getPass());
 
-        boolean usernameExists = userMapper.getByUsername(user.getUsername()).size() > 0;
-        boolean emailExists = userMapper.getByEmail(user.getEmail()).size() > 0;
+        boolean usernameExists = userDao.getByUsername(user.getUsername()).size() > 0;
+        boolean emailExists = userDao.getByEmail(user.getEmail()).size() > 0;
 
         if (!usernameMatcher.matches() || usernameExists) {
             resultMap.put("username already exists or not right", false);
@@ -102,7 +101,7 @@ public class AuthenticationService {
             log.error("Cannot hash password, e");
         }
 
-        List<User> userList = userMapper.getByUsername(user.getUsername());
+        List<User> userList = userDao.getByUsername(user.getUsername());
         if (userList.size() > 0) {
             if (userList.get(0).getPass().equals(passwordHashed)) {
                 return true;
